@@ -1,65 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sincere's School Projects</title>
+  <title>Maths – 360° + θ</title>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #333;
-      text-align: center;
       margin: 0;
-      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #1f4037, #99f2c8);
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    header {
-      background: #0078ff;
-      color: white;
-      padding: 20px 0;
-      font-size: 1.5em;
+    nav {
+      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
 
-    .container {
-      margin-top: 40px;
+    nav h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      font-weight: 600;
     }
 
-    a {
-      display: block;
-      margin: 15px auto;
-      width: 250px;
-      background: white;
-      border: 2px solid #0078ff;
-      border-radius: 10px;
-      padding: 12px;
+    nav a {
+      color: #fff;
       text-decoration: none;
-      color: #0078ff;
-      font-weight: bold;
-      transition: all 0.2s ease;
+      margin-left: 20px;
+      font-size: 1rem;
+      transition: 0.3s;
     }
 
-    a:hover {
-      background: #0078ff;
-      color: white;
+    nav a:hover {
+      color: #d1fffa;
     }
 
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #666;
+    .title-section {
+      text-align: center;
+      padding: 100px 20px 40px;
+    }
+
+    .title-section h2 {
+      font-size: 3rem;
+      animation: fadeUp 1s ease;
+    }
+
+    .title-section p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: auto;
+      animation: fadeUp 1.3s ease;
+    }
+
+    /* Content box */
+    .content-box {
+      background: rgba(0,0,0,0.2);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: fadeUp 1.4s ease;
+    }
+
+    iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
+
 </head>
 <body>
-  <header>Projects</header>
 
-  <div class="container">
-    <a href="https://scratch.mit.edu/projects/1240631196/" target="_blank">🐦 Bird Game</a>
-    <a href="https://scratch.mit.edu/projects/1240633442/" target="_blank">🎹 Piano Project</a>
-    <a href="https://docs.google.com/presentation/d/1Apcn5BHwJXvm8jiUCSONLkwMaYmqxnOr/edit?usp=sharing&ouid=107283669815638045691&rtpof=true&sd=true" target="_blank">📑 Presentation</a>
+  <nav>
+    <h1>Maths Project</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="Main.html">Maths</a>
+    </div>
+  </nav>
+
+  <section class="title-section">
+    <h2>Trigonometry: 360° + θ</h2>
+    <p>
+      This page covers the concept of 360° + θ, its importance, uses, and rules in trigonometry.
+      The Google Slides presentation is included below for easy viewing.
+    </p>
+  </section>
+
+  <div class="content-box">
+    <h3>Presentation</h3>
+
+    <!-- YOUR PRESENTATION EMBED -->
+    <iframe 
+      src="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/embed?start=false&loop=true&delayms=3000"
+      allowfullscreen="true" 
+      mozallowfullscreen="true" 
+      webkitallowfullscreen="true">
+    </iframe>
+
   </div>
 
-  <footer>Backup Site</footer></footer>
+  <footer style="text-align:center; padding:20px; opacity:0.7;">
+    Created by Sincere Bhattarai | Class 9D
+  </footer>
+
 </body>
 </html>
