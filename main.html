@@ -3,60 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maths – 360° + θ</title>
+<title>Maths – Trigonometry</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 <style>
-body {margin:0; font-family:'Orbitron',sans-serif; background: radial-gradient(#000010,#0a0a20,#000000); color:#fff; overflow-x:hidden;}
-#stars{position:fixed;top:0;left:0;width:100%;height:100%; z-index:-1;}
-.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle 2s infinite alternate;}
-@keyframes twinkle{from{opacity:0.2;}to{opacity:1;}}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;position:sticky;top:0;background:rgba(0,0,20,0.6);border-bottom:1px solid #00ffff88;backdrop-filter:blur(8px);z-index:100;}
-nav h1{font-size:1.8rem;color:#00ffff;letter-spacing:1px;}
-nav a{color:#00ffff;text-decoration:none;margin-left:20px;font-weight:700;transition:0.3s;}
-nav a:hover{color:#ff00ff;text-shadow:0 0 8px #ff00ff;}
-.title-section{text-align:center;padding:100px 20px 40px;}
-.title-section h2{font-size:3rem; animation:fadeUp 1s ease forwards;}
-.title-section p{font-size:1.2rem;opacity:0.8;max-width:700px;margin:auto;animation:fadeUp 1.3s ease forwards;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.content-box{background:rgba(0,255,255,0.05);margin:40px auto;padding:30px;border-radius:16px;width:90%;max-width:900px;backdrop-filter:blur(10px);border:1px solid rgba(0,255,255,0.2);animation:fadeUp 1.4s ease;}
-iframe{width:100%;height:520px;border:none;border-radius:12px;margin-top:20px;}
+/* Page-specific overrides */
+.hero h2{color:#ffcc00;}
+.math-section{display:flex; flex-direction:column; align-items:center; padding:60px 20px;}
+.math-title{font-size:2.5rem; margin-bottom:20px; color:#00ffff; text-shadow:0 0 10px #00ffff;}
+.graph-container{position:relative; width:500px; height:500px; margin-bottom:40px;}
+#circle-graph{width:100%; height:100%;}
+.quadrant-label{position:absolute; color:#ff00ff; font-weight:700; font-size:1.2rem;}
+.formula-float{position:absolute; color:#00ffcc; font-weight:700; font-size:1rem; animation:floatFormula 12s linear infinite; pointer-events:none;}
+@keyframes floatFormula{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(-1000px) rotate(360deg);}
+}
+.slides-container{width:80%; height:400px; margin-bottom:60px;}
 </style>
 </head>
 <body>
-<div id="stars"></div>
+
+<!-- Star & Nebula Layers -->
+<div id="nebula-layer"></div>
+<div id="stars-layer"></div>
+
+<!-- Navbar -->
 <nav>
-<h1>Maths Project</h1>
-<div>
-<a href="index.html">Home</a>
-<a href="Main.html">Maths</a>
-<a href="Extra.html">Extras</a>
-</div>
+  <h1>🌌 Space Hub</h1>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="main.html">Maths</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="extras.html">Extras</a>
+  </div>
 </nav>
 
-<section class="title-section">
-<h2>Trigonometry: 360° + θ</h2>
-<p>Learn the concept, importance, and applications of 360° + θ in trigonometry. Interactive Google Slides embedded below.</p>
+<section class="hero">
+  <h2>360° + θ – Trigonometry</h2>
+  <p>Explore trigonometric functions, ratios, and rules in all four quadrants with interactive visuals.</p>
 </section>
 
-<div class="content-box">
-<h3>Presentation</h3>
-<iframe src="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/embed?start=false&loop=true&delayms=3000" allowfullscreen="true"></iframe>
-</div>
+<section class="math-section">
+  <h3 class="math-title">Graph of 360° + θ</h3>
+  
+  <!-- SVG Circle & Quadrants -->
+  <div class="graph-container">
+    <svg id="circle-graph" viewBox="0 0 500 500">
+      <circle cx="250" cy="250" r="200" stroke="#00ffff" stroke-width="3" fill="rgba(0,255,255,0.05)" />
+      <!-- Quadrant lines -->
+      <line x1="250" y1="50" x2="250" y2="450" stroke="#ff00ff" stroke-width="2"/>
+      <line x1="50" y1="250" x2="450" y2="250" stroke="#ff00ff" stroke-width="2"/>
+      <!-- Triangle example for theta -->
+      <polygon points="250,250 400,250 400,350" fill="rgba(255,0,255,0.3)" stroke="#ff00ff" stroke-width="2"/>
+    </svg>
+    <!-- Quadrant labels -->
+    <span class="quadrant-label" style="top:70px; left:380px;">I (+,+)</span>
+    <span class="quadrant-label" style="top:70px; left:70px;">II (-,+)</span>
+    <span class="quadrant-label" style="top:380px; left:70px;">III (-,-)</span>
+    <span class="quadrant-label" style="top:380px; left:380px;">IV (+,-)</span>
+  </div>
 
-<footer style="text-align:center; padding:20px; opacity:0.7;">Created by Sincere Bhattarai | Class 9D</footer>
+  <!-- Floating Formulas -->
+  <div class="formula-float" style="top:80%; left:10%;">sin(360°+θ) = sin θ</div>
+  <div class="formula-float" style="top:85%; left:60%;">cos(360°+θ) = cos θ</div>
+  <div class="formula-float" style="top:90%; left:30%;">tan(360°+θ) = tan θ</div>
+  <div class="formula-float" style="top:95%; left:50%;">csc, sec, cot ratios</div>
+</section>
 
-<script>
-// STAR FIELD
-const starsContainer = document.getElementById('stars');
-for(let i=0;i<150;i++){
-    let star=document.createElement('div');
-    star.classList.add('star');
-    star.style.top=Math.random()*100+'%';
-    star.style.left=Math.random()*100+'%';
-    star.style.width=star.style.height=(Math.random()*2+1)+'px';
-    star.style.animationDuration=(Math.random()*3+1)+'s';
-    starsContainer.appendChild(star);
-}
-</script>
+<section class="slides-container">
+  <!-- Embedded Google Slides -->
+  <iframe src="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</section>
+
+<footer>
+  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
+  <p>🌠 Explore 360°+θ interactively!</p>
+</footer>
+
+<script src="js/animations.js"></script>
 </body>
 </html>
