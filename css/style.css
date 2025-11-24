@@ -1,0 +1,32 @@
+body, html{margin:0;padding:0;overflow-x:hidden;font-family:'Orbitron',sans-serif;background:#000010;color:white;perspective:1000px;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 50px;position:sticky;top:0;background:rgba(0,0,20,0.7);border-bottom:1px solid #00ffff77;backdrop-filter:blur(8px);z-index:100;}
+nav h1{color:#00ffff;font-size:2rem;}
+nav a{color:#00ffff;margin-left:25px;text-decoration:none;font-weight:700;transition:0.3s;}
+nav a:hover{color:#ff00ff;text-shadow:0 0 10px #ff00ff;}
+
+#stars-layer,#nebula-layer,#planets-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
+#nebula-layer{background:url('../assets/nebula.svg') center/cover no-repeat;}
+#stars-layer{background:url('../assets/stars.svg') repeat;}
+#planets-layer{pointer-events:none;}
+
+.floating-rocket,.floating-planet,.floating-comet,.floating-satellite{
+  position:absolute;width:80px;animation:floatObj linear infinite;
+}
+@keyframes floatObj{0%{transform:translateY(0);}50%{transform:translateY(-40px) rotate(15deg);}100%{transform:translateY(0);}}
+
+.hero{text-align:center;padding:120px 20px;}
+.hero h2{font-size:3rem;animation:fadeUp 1s ease forwards;}
+.hero p{font-size:1.2rem;opacity:0.8;animation:fadeUp 1.4s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+.info-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;padding:40px 20px;}
+.info-cards .card{background:rgba(0,255,255,0.05);border-radius:20px;width:280px;padding:25px;text-align:center;border:2px solid #00ffff33;transition:0.5s;cursor:pointer;backdrop-filter:blur(10px);}
+.info-cards .card:hover{transform:translateY(-10px) scale(1.05);border-color:#ff00ff;box-shadow:0 0 20px #ff00ff;}
+
+.projects{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;padding:40px 20px;}
+.projects .card{background:rgba(0,255,255,0.05);border-radius:20px;width:280px;padding:25px;text-align:center;border:2px solid #00ffff33;transition:0.5s;cursor:pointer;backdrop-filter:blur(10px);}
+.projects .card:hover{transform:translateY(-10px) scale(1.05);border-color:#ff00ff;box-shadow:0 0 20px #ff00ff;}
+.projects a{text-decoration:none;color:#00ffff;font-size:1.2rem;font-weight:700;}
+.projects a:hover{color:#ff00ff;}
+
+footer{text-align:center;padding:20px;opacity:0.7;}
