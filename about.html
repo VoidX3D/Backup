@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – Space Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.about-cards{display:flex; flex-wrap:wrap; justify-content:center; gap:30px; padding:60px 20px;}
+.about-cards .card{width:220px; padding:25px; border-radius:20px; background:rgba(0,255,255,0.05); border:2px solid #00ffff33; text-align:center; transition:0.5s; cursor:pointer; backdrop-filter:blur(10px);}
+.about-cards .card:hover{transform:translateY(-10px) scale(1.05); border-color:#ff00ff; box-shadow:0 0 20px #ff00ff;}
+</style>
+</head>
+<body>
+
+<div id="nebula-layer"></div>
+<div id="stars-layer"></div>
+
+<nav>
+  <h1>🌌 Space Hub</h1>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="main.html">Maths</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="extras.html">Extras</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h2>About Group 5</h2>
+  <p>Meet the creators behind the Space Hub project!</p>
+</section>
+
+<section class="about-cards">
+  <div class="card">Sincere Bhattarai – Lead Developer</div>
+  <div class="card">Priyansh – Designer & UI</div>
+  <div class="card">Gaurav – Backend Developer</div>
+  <div class="card">Himal – Animator & Visuals</div>
+  <div class="card">Bijit – Interactivity & JS</div>
+  <div class="card">Sujal – Testing & QA</div>
+  <div class="card">Aayush – Content & Research</div>
+</section>
+
+<img src="assets/rocket.svg" class="floating-rocket" style="top:20%; left:10%;">
+<img src="assets/planet.svg" class="floating-planet" style="top:50%; left:80%;">
+<img src="assets/comet.svg" class="floating-comet" style="top:70%; left:40%;">
+
+<footer>
+  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
+  <p>🚀 Explore more pages for interactive space content!</p>
+</footer>
+
+<script src="js/animations.js"></script>
+</body>
+</html>
