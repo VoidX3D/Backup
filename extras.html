@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extras – Space Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.extras-cards{display:flex; flex-wrap:wrap; justify-content:center; gap:30px; padding:60px 20px;}
+.extras-cards .card{width:240px; padding:25px; border-radius:20px; background:rgba(255,255,255,0.05); border:2px solid #00ffff33; text-align:center; transition:0.5s; cursor:pointer; backdrop-filter:blur(10px);}
+.extras-cards .card:hover{transform:translateY(-10px) scale(1.05); border-color:#ff00ff; box-shadow:0 0 20px #ff00ff;}
+</style>
+</head>
+<body>
+
+<div id="nebula-layer"></div>
+<div id="stars-layer"></div>
+
+<nav>
+  <h1>🌌 Space Hub</h1>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="main.html">Maths</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="extras.html">Extras</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h2>Fun Space Animations</h2>
+  <p>Explore floating formulas, interactive comets, planets, and glowing equations!</p>
+</section>
+
+<section class="extras-cards">
+  <div class="card">✨ Floating Trig Formulas</div>
+  <div class="card">🪐 Planets with Hover Facts</div>
+  <div class="card">☄️ Comets & Shooting Stars</div>
+  <div class="card">🚀 Rockets with Animation Paths</div>
+  <div class="card">🌌 Nebula Background Layers</div>
+</section>
+
+<img src="assets/rocket.svg" class="floating-rocket" style="top:10%; left:5%;">
+<img src="assets/planet.svg" class="floating-planet" style="top:40%; left:85%;">
+<img src="assets/comet.svg" class="floating-comet" style="top:70%; left:40%;">
+
+<footer>
+  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
+  <p>🌠 Enjoy interactive space animations!</p>
+</footer>
+
+<script src="js/animations.js"></script>
+</body>
+</html>
