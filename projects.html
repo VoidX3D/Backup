@@ -1,52 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects – Space Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Space Hub — Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page page-projects">
+  <div id="nebula" class="bg-layer" aria-hidden="true"></div>
+  <canvas id="stars" class="bg-layer" aria-hidden="true"></canvas>
 
-<!-- Parallax background -->
-<div id="nebula-layer"></div>
-<div id="stars-layer"></div>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <svg class="logo" viewBox="0 0 64 64"><path fill="#00f0ff" d="M32 4 L44 20 L60 28 L44 44 L32 60 L20 44 L4 28 L20 20 Z"/></svg>
+      <div class="brand"><span class="brand-title">space hub</span><span class="brand-sub">projects</span></div>
+    </div>
 
-<!-- Navbar -->
-<nav>
-  <h1>🌌 Space Hub</h1>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="main.html">Maths</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="extras.html">Extras</a>
-  </div>
-</nav>
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="main.html">Maths</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="game.html">Game</a>
+      <a href="extras.html">Extras</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-<section class="hero">
-  <h2>Interactive Projects</h2>
-  <p>Explore our fun projects with space-themed animation and interactive visuals!</p>
-</section>
+  <main class="projects-main">
+    <section class="hero-mini">
+      <h1>Projects</h1>
+      <p>Toggle between grid or list view. Click a card to open the project (external links open in new tab).</p>
 
-<section class="projects">
-  <div class="card"><a href="https://scratch.mit.edu/projects/1240631196/" target="_blank">🐦 Bird Game</a></div>
-  <div class="card"><a href="https://scratch.mit.edu/projects/1240633442/" target="_blank">🎹 Piano Game</a></div>
-  <div class="card"><a href="main.html">📘 Maths – Trigonometry</a></div>
-  <div class="card"><a href="extras.html">🔮 Extras & Animations</a></div>
-</section>
+      <div class="view-controls">
+        <button id="view-grid" class="btn small active">Grid</button>
+        <button id="view-list" class="btn small">List</button>
+        <button id="add-project" class="btn small">Add demo project</button>
+      </div>
+    </section>
 
-<!-- Floating elements -->
-<img src="assets/rocket.svg" class="floating-rocket" style="top:10%; left:5%;">
-<img src="assets/comet.svg" class="floating-comet" style="top:60%; left:70%;">
-<img src="assets/planet.svg" class="floating-planet" style="top:40%; left:85%;">
+    <section id="projectsContainer" class="projects-grid grid-view">
+      <!-- project cards inserted here -->
+      <article class="project-card" data-tip="opens external">
+        <img src="https://www.svgrepo.com/download/533007/rocket.svg" alt="rocket icon">
+        <h3>Bird Game</h3>
+        <p>Scratch project</p>
+        <a class="btn small" href="https://scratch.mit.edu/projects/1240631196/" target="_blank" rel="noreferrer">Open</a>
+      </article>
 
-<footer>
-  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
-  <p>✨ Hover cards for more info!</p>
-</footer>
+      <article class="project-card" data-tip="opens external">
+        <img src="https://www.svgrepo.com/download/533068/musical-note.svg" alt="music">
+        <h3>Piano</h3>
+        <p>Scratch music demo</p>
+        <a class="btn small" href="https://scratch.mit.edu/projects/1240633442/" target="_blank" rel="noreferrer">Open</a>
+      </article>
 
-<script src="js/animations.js"></script>
+      <article class="project-card" data-tip="slides">
+        <img src="https://www.svgrepo.com/download/533417/document.svg" alt="doc">
+        <h3>Presentation</h3>
+        <p>Google Slides (embedded in Maths)</p>
+        <a class="btn small" href="main.html">Open</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">Group 5 — Projects</footer>
+
+  <script src="js/app.js" defer></script>
+  <script>
+    (function(){
+      const container = document.getElementById('projectsContainer');
+      const btnGrid = document.getElementById('view-grid');
+      const btnList = document.getElementById('view-list');
+      const btnAdd = document.getElementById('add-project');
+
+      btnGrid.addEventListener('click', ()=>{
+        container.classList.remove('list-view');
+        container.classList.add('grid-view');
+        btnGrid.classList.add('active'); btnList.classList.remove('active');
+      });
+
+      btnList.addEventListener('click', ()=>{
+        container.classList.remove('grid-view');
+        container.classList.add('list-view');
+        btnList.classList.add('active'); btnGrid.classList.remove('active');
+      });
+
+      btnAdd.addEventListener('click', ()=>{
+        const art = document.createElement('article');
+        art.className = 'project-card';
+        art.innerHTML = `<img src="https://www.svgrepo.com/download/533007/rocket.svg" alt="icon"><h3>New Project</h3><p>Click to edit later</p><a class="btn small" href="#">Open</a>`;
+        container.appendChild(art);
+        anime({targets: art, opacity: [0,1], translateY: [20,0], duration: 600, easing: 'easeOutCubic'});
+      });
+    })();
+  </script>
 </body>
 </html>
