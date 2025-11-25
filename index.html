@@ -1,69 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultra Space Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Space Hub — Home</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <!-- anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page page-home">
 
-<!-- Parallax Layers -->
-<div id="nebula-layer"></div>
-<div id="stars-layer"></div>
-<div id="planets-layer"></div>
+  <!-- background layers -->
+  <div id="nebula" class="bg-layer" aria-hidden="true"></div>
+  <canvas id="stars" class="bg-layer" aria-hidden="true"></canvas>
+  <svg id="bg-objects" class="bg-layer" aria-hidden="true"></svg>
 
-<!-- Floating rockets, comets, satellites -->
-<img src="assets/rocket.svg" class="floating-rocket" style="top:20%; left:5%;">
-<img src="assets/comet.svg" class="floating-comet" style="top:70%; left:60%;">
-<img src="assets/planet.svg" class="floating-planet" style="top:40%; left:85%;">
-<img src="assets/satellite.svg" class="floating-satellite" style="top:50%; left:30%;">
+  <!-- header / nav -->
+  <header class="topbar" role="banner">
+    <div class="brand-wrap">
+      <!-- inline SVG logo (uses gradients) -->
+      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#00f0ff"/><stop offset="1" stop-color="#ff00c8"/></linearGradient>
+        </defs>
+        <path d="M32 4 L44 20 L60 28 L44 44 L32 60 L20 44 L4 28 L20 20 Z" fill="url(#lg)"></path>
+      </svg>
 
-<!-- Navbar -->
-<nav>
-  <h1>🌌 Space Hub</h1>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="main.html">Maths</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="extras.html">Extras</a>
-  </div>
-</nav>
+      <div class="brand">
+        <span class="brand-title">space hub</span>
+        <span class="brand-sub">interactive projects & maths</span>
+      </div>
+    </div>
 
-<section class="hero">
-  <h2>Welcome to the Ultra Space Hub</h2>
-  <p>Experience school projects like never before—floating formulas, planets, rockets, and a fully interactive space-themed interface!</p>
-</section>
+    <nav class="navlinks" role="navigation" aria-label="Main navigation">
+      <a href="index.html" class="nav-item active">Home</a>
+      <a href="main.html" class="nav-item">Maths</a>
+      <a href="projects.html" class="nav-item">Projects</a>
+      <a href="game.html" class="nav-item">Game</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="extras.html" class="nav-item">Extras</a>
+    </nav>
 
-<section class="info-cards">
-  <div class="card">
-    <h3>Maths & Trigonometry</h3>
-    <p>Explore 360°+θ, quadrants, formulas, and interactive diagrams floating through space.</p>
-  </div>
-  <div class="card">
-    <h3>Physics & Space Facts</h3>
-    <p>Mini-info panels about planets, stars, and cosmic phenomena for a realistic space vibe.</p>
-  </div>
-  <div class="card">
-    <h3>Projects</h3>
-    <p>Click through interactive games, presentations, and animations, all themed around space and math.</p>
-  </div>
-</section>
+    <div class="actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z" fill="#fff" opacity="0.95"/></svg>
+      </button>
+    </div>
+  </header>
 
-<section class="projects">
-  <div class="card"><a href="https://scratch.mit.edu/projects/1240631196/" target="_blank">🐦 Bird Game</a></div>
-  <div class="card"><a href="https://scratch.mit.edu/projects/1240633442/" target="_blank">🎹 Piano Game</a></div>
-  <div class="card"><a href="main.html">📘 Maths – Trigonometry</a></div>
-  <div class="card"><a href="extras.html">🔮 Extras & Presentations</a></div>
-</section>
+  <!-- main hero -->
+  <main class="hero" role="main">
+    <section class="hero-left">
+      <h1 class="title">Present your projects in orbit</h1>
+      <p class="lead">A clean, modern, animated space theme — unit circle tools, interactive visuals, and a projects gallery built for class presentations.</p>
 
-<footer>
-  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
-  <p>🌠 Hover over planets for fun facts!</p>
-</footer>
+      <div class="cta">
+        <a class="btn primary" href="main.html">Open Maths</a>
+        <a class="btn outline" href="projects.html">View Projects</a>
+      </div>
 
-<script src="js/animations.js"></script>
+      <div class="quick-cards">
+        <article class="quick" data-tip="Interactive unit circle">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+          <div><strong>360° + θ</strong><span>Interactive unit-circle visual</span></div>
+        </article>
+
+        <article class="quick" data-tip="Embedded slides">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+          <div><strong>Slides</strong><span>Embedded Google Slides</span></div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="hero-right" aria-hidden="true">
+      <!-- decorative floating SVG (planet + ring) -->
+      <svg class="floating-planet" viewBox="0 0 200 200" width="380" height="380" aria-hidden="true">
+        <defs><radialGradient id="pg" cx="30%" cy="30%"><stop offset="0" stop-color="#6ef3ff"/><stop offset="1" stop-color="#7a00ff"/></radialGradient></defs>
+        <circle cx="100" cy="100" r="70" fill="url(#pg)" />
+        <ellipse cx="100" cy="110" rx="100" ry="18" fill="#00000022" transform="rotate(-25 100 100)"/>
+      </svg>
+    </aside>
+  </main>
+
+  <!-- feature cards -->
+  <section class="grid">
+    <a class="card" href="main.html">
+      <svg class="card-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      <h3>Maths — 360° + θ</h3>
+      <p>Unit circle, identities and interactive examples for Class 9.</p>
+    </a>
+
+    <a class="card" href="projects.html">
+      <svg class="card-icon" viewBox="0 0 24 24"><path d="M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>
+      <h3>Projects</h3>
+      <p>Grid / List toggle — add your projects easily.</p>
+    </a>
+
+    <a class="card" href="game.html">
+      <svg class="card-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      <h3>Game</h3>
+      <p>Small canvas game — extendable demo for later.</p>
+    </a>
+
+    <a class="card" href="extras.html">
+      <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z" stroke="currentColor" stroke-width="1.1" fill="none"/></svg>
+      <h3>Extras</h3>
+      <p>Animated formulas, particles, and visual toys.</p>
+    </a>
+  </section>
+
+  <footer class="footer">
+    <div>© Sincere Bhattarai</div>
+    <div class="muted">Production-ready, presentation-ready</div>
+  </footer>
+
+  <!-- app script -->
+  <script src="js/app.js" defer></script>
 </body>
 </html>
