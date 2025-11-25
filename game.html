@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Space Hub — Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page page-game">
+  <div id="nebula" class="bg-layer" aria-hidden="true"></div>
+  <canvas id="stars" class="bg-layer" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <div class="brand-wrap">
+      <svg class="logo" viewBox="0 0 64 64"><path fill="#00f0ff" d="M32 4 L44 20 L60 28 L44 44 L32 60 L20 44 L4 28 L20 20 Z"/></svg>
+      <div class="brand"><span class="brand-title">space hub</span><span class="brand-sub">game</span></div>
+    </div>
+
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="main.html">Maths</a>
+      <a href="projects.html">Projects</a>
+      <a href="game.html" class="active">Game</a>
+      <a href="extras.html">Extras</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="hero-mini">
+      <h1>Mini game demo</h1>
+      <p>Press Space to jump. This is a simple extendable canvas game scaffold.</p>
+    </section>
+
+    <div class="game-stage">
+      <canvas id="game" width="900" height="360"></canvas>
+      <div class="game-controls"><button id="start" class="btn small">Start / Pause</button> <button id="reset" class="btn small">Reset</button></div>
+    </div>
+  </main>
+
+  <footer class="footer">Game demo — extend as needed</footer>
+
+  <script src="js/app.js" defer></script>
+  <script>
+  (function(){
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    let running=false, y=260, vy=0, gravity=0.9;
+    function step(){
+      if(!running) return;
+      vy += gravity;
+      y += vy;
+      if(y > 300){ y = 300; vy = 0; }
+      ctx.fillStyle = '#030318';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#ffdd55';
+      ctx.fillRect(120, y, 40, 40);
+      requestAnimationFrame(step);
+    }
+    document.getElementById('start').addEventListener('click', ()=>{
+      running = !running;
+      if(running) requestAnimationFrame(step);
+    });
+    document.getElementById('reset').addEventListener('click', ()=>{ running=false; y=260; vy=0; ctx.clearRect(0,0,canvas.width,canvas.height); });
+    window.addEventListener('keydown', (e)=>{ if(e.code === 'Space') vy = -14; });
+  })();
+  </script>
+</body>
+</html>
