@@ -1,87 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maths – Trigonometry</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* Page-specific overrides */
-.hero h2{color:#ffcc00;}
-.math-section{display:flex; flex-direction:column; align-items:center; padding:60px 20px;}
-.math-title{font-size:2.5rem; margin-bottom:20px; color:#00ffff; text-shadow:0 0 10px #00ffff;}
-.graph-container{position:relative; width:500px; height:500px; margin-bottom:40px;}
-#circle-graph{width:100%; height:100%;}
-.quadrant-label{position:absolute; color:#ff00ff; font-weight:700; font-size:1.2rem;}
-.formula-float{position:absolute; color:#00ffcc; font-weight:700; font-size:1rem; animation:floatFormula 12s linear infinite; pointer-events:none;}
-@keyframes floatFormula{
-  0%{transform:translateY(0) rotate(0deg);}
-  100%{transform:translateY(-1000px) rotate(360deg);}
-}
-.slides-container{width:80%; height:400px; margin-bottom:60px;}
-</style>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Space Hub — Maths</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page page-maths">
+  <div id="nebula" class="bg-layer" aria-hidden="true"></div>
+  <canvas id="stars" class="bg-layer" aria-hidden="true"></canvas>
 
-<!-- Star & Nebula Layers -->
-<div id="nebula-layer"></div>
-<div id="stars-layer"></div>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <svg class="logo" viewBox="0 0 64 64"><path fill="url(#lg)" d="M32 4 L44 20 L60 28 L44 44 L32 60 L20 44 L4 28 L20 20 Z"/></svg>
+      <div class="brand"><span class="brand-title">space hub</span><span class="brand-sub">maths</span></div>
+    </div>
 
-<!-- Navbar -->
-<nav>
-  <h1>🌌 Space Hub</h1>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="main.html">Maths</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="extras.html">Extras</a>
-  </div>
-</nav>
+    <nav class="navlinks" role="navigation">
+      <a href="index.html">Home</a>
+      <a href="main.html" class="active">Maths</a>
+      <a href="projects.html">Projects</a>
+      <a href="game.html">Game</a>
+      <a href="extras.html">Extras</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-<section class="hero">
-  <h2>360° + θ – Trigonometry</h2>
-  <p>Explore trigonometric functions, ratios, and rules in all four quadrants with interactive visuals.</p>
-</section>
+  <main class="maths-container">
+    <section class="math-hero">
+      <h1>360° + θ</h1>
+      <p class="lead">Angles repeat every 360°. On the unit circle, 360°+θ lands on the same terminal point as θ.</p>
+    </section>
 
-<section class="math-section">
-  <h3 class="math-title">Graph of 360° + θ</h3>
-  
-  <!-- SVG Circle & Quadrants -->
-  <div class="graph-container">
-    <svg id="circle-graph" viewBox="0 0 500 500">
-      <circle cx="250" cy="250" r="200" stroke="#00ffff" stroke-width="3" fill="rgba(0,255,255,0.05)" />
-      <!-- Quadrant lines -->
-      <line x1="250" y1="50" x2="250" y2="450" stroke="#ff00ff" stroke-width="2"/>
-      <line x1="50" y1="250" x2="450" y2="250" stroke="#ff00ff" stroke-width="2"/>
-      <!-- Triangle example for theta -->
-      <polygon points="250,250 400,250 400,350" fill="rgba(255,0,255,0.3)" stroke="#ff00ff" stroke-width="2"/>
-    </svg>
-    <!-- Quadrant labels -->
-    <span class="quadrant-label" style="top:70px; left:380px;">I (+,+)</span>
-    <span class="quadrant-label" style="top:70px; left:70px;">II (-,+)</span>
-    <span class="quadrant-label" style="top:380px; left:70px;">III (-,-)</span>
-    <span class="quadrant-label" style="top:380px; left:380px;">IV (+,-)</span>
-  </div>
+    <section class="visual-grid">
+      <div class="unit-wrap">
+        <svg id="unit" viewBox="0 0 500 500" class="unit-svg" role="img" aria-label="Unit circle">
+          <defs>
+            <linearGradient id="ucGrad" x1="0" x2="1"><stop offset="0" stop-color="#00f0ff"/><stop offset="1" stop-color="#ff00c8"/></linearGradient>
+          </defs>
 
-  <!-- Floating Formulas -->
-  <div class="formula-float" style="top:80%; left:10%;">sin(360°+θ) = sin θ</div>
-  <div class="formula-float" style="top:85%; left:60%;">cos(360°+θ) = cos θ</div>
-  <div class="formula-float" style="top:90%; left:30%;">tan(360°+θ) = tan θ</div>
-  <div class="formula-float" style="top:95%; left:50%;">csc, sec, cot ratios</div>
-</section>
+          <g transform="translate(250,250)">
+            <circle r="180" stroke="url(#ucGrad)" stroke-width="3" fill="rgba(255,255,255,0.02)"/>
+            <line x1="-220" x2="220" y1="0" y2="0" stroke="#ffffff20" stroke-width="2"/>
+            <line x1="0" x2="0" y1="-220" y2="220" stroke="#ffffff20" stroke-width="2"/>
+            <text x="110" y="-120" fill="#fff7" font-size="18">I (+,+)</text>
+            <text x="-200" y="-120" fill="#fff7" font-size="18">II (−,+)</text>
+            <text x="-200" y="150" fill="#fff7" font-size="18">III (−,−)</text>
+            <text x="100" y="150" fill="#fff7" font-size="18">IV (+,−)</text>
 
-<section class="slides-container">
-  <!-- Embedded Google Slides -->
-  <iframe src="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-</section>
+            <!-- terminal point group -->
+            <g id="terminal" transform="rotate(45)">
+              <circle cx="180" cy="0" r="8" fill="#ffdd55" stroke="#fff" stroke-width="1.2"/>
+            </g>
 
-<footer>
-  <p>Created by Sincere Bhattarai & Group 5 | Class 9D</p>
-  <p>🌠 Explore 360°+θ interactively!</p>
-</footer>
+            <!-- triangle -->
+            <polygon id="triangle" points="0,0 180,0 150,-60" fill="rgba(255,221,85,0.07)" stroke="#ffdd55"/>
+          </g>
+        </svg>
 
-<script src="js/animations.js"></script>
+        <div class="controls">
+          <label>Angle (°)</label>
+          <input id="angleInput" type="range" min="-720" max="1080" value="45" />
+          <div class="angle-values">current: <span id="angleVal">45</span>°</div>
+
+          <div class="identities">
+            <h4>360° + θ identities</h4>
+            <ul>
+              <li><strong>sin(360° + θ) = sin θ</strong></li>
+              <li><strong>cos(360° + θ) = cos θ</strong></li>
+              <li><strong>tan(360° + θ) = tan θ</strong></li>
+              <li>Also applies to sec, csc, cot (periodic)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <aside class="docs">
+        <h3>Definitions</h3>
+        <p>sin θ = opposite / hypotenuse • cos θ = adjacent / hypotenuse • tan θ = opposite / adjacent</p>
+
+        <h4>Example</h4>
+        <p>If θ = 45°, 360° + θ = 405°. The terminal point repeats; trig values are the same.</p>
+
+        <h4>Slides</h4>
+        <iframe src="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/embed?start=false&loop=false&delayms=3000" allowfullscreen></iframe>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>Group 5 — Sincere & team</div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+
+  <!-- small inline controller for unit circle -->
+  <script>
+    (function(){
+      const term = document.getElementById('terminal');
+      const tri = document.getElementById('triangle');
+      const input = document.getElementById('angleInput');
+      const val = document.getElementById('angleVal');
+      function setAngle(deg){
+        anime.remove(term);
+        anime({ targets: term, rotate: deg, duration: 450, easing: 'easeOutCubic' });
+        anime.remove(tri);
+        anime({ targets: tri, rotate: deg, duration: 450, easing: 'easeOutCubic' });
+        val.textContent = deg;
+      }
+      input.addEventListener('input',(e)=> setAngle(e.target.value));
+      setAngle(input.value);
+    })();
+  </script>
 </body>
 </html>
