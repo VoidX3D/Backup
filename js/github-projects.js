@@ -1,7 +1,7 @@
 // github-projects.js
 class GitHubProjects {
   constructor() {
-    this.username = 'your-github-username'; // Replace with your GitHub username
+    this.username = 'VoidX3D'; // Replace with your GitHub username
     this.projectsGrid = document.getElementById('projectsGrid');
     this.init();
   }
