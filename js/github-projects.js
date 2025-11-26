@@ -13,14 +13,13 @@ class GitHubProjects {
       // Show loading state
       this.showLoadingState();
       
-      // Fetch all public repositories
+      // Fetch ALL public repositories without any filtering
       this.allProjects = await this.fetchAllGitHubProjects();
       
-      // Display projects
+      // Display ALL projects
       this.displayProjects(this.allProjects);
       
-      // Update search to include GitHub projects
-      this.enableSearch();
+      console.log(`✅ Loaded ${this.allProjects.length} public repositories`);
       
     } catch (error) {
       console.error('Error loading GitHub projects:', error);
@@ -34,10 +33,12 @@ class GitHubProjects {
     const perPage = 100; // Maximum per page
     
     try {
+      console.log('🔄 Fetching all public repositories from GitHub...');
+      
       // Keep fetching until we have all repos
       while (true) {
         const response = await fetch(
-          `https://api.github.com/users/${this.username}/repos?sort=updated&per_page=${perPage}&page=${page}`
+          `https://api.github.com/users/${this.username}/repos?sort=updated&direction=desc&per_page=${perPage}&page=${page}`
         );
         
         if (!response.ok) {
@@ -45,6 +46,7 @@ class GitHubProjects {
         }
         
         const repos = await response.json();
+        console.log(`📦 Fetched page ${page}: ${repos.length} repositories`);
         
         // If no more repos, break
         if (repos.length === 0) break;
@@ -52,30 +54,46 @@ class GitHubProjects {
         allRepos = allRepos.concat(repos);
         page++;
         
-        // Safety limit - GitHub has a limit of few thousand repos per user
-        if (page > 10) break; // Max 1000 repos
+        // Show progress
+        this.updateLoadingMessage(`Loaded ${allRepos.length} repositories...`);
+        
+        // Safety limit - but should get all repos
+        if (page > 20) {
+          console.warn('Reached safety limit of 2000 repos');
+          break;
+        }
+        
+        // Small delay to be nice to GitHub API
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
       
-      console.log(`Found ${allRepos.length} repositories`);
+      console.log(`🎉 Total repositories found: ${allRepos.length}`);
       
-      // Process repositories in batches to avoid rate limits
-      const batchSize = 5;
+      // Process ALL repositories - no filtering
       const processedProjects = [];
       
-      for (let i = 0; i < allRepos.length; i += batchSize) {
-        const batch = allRepos.slice(i, i + batchSize);
-        const batchPromises = batch.map(repo => this.processRepository(repo));
-        const batchResults = await Promise.allSettled(batchPromises);
-        
-        batchResults.forEach(result => {
-          if (result.status === 'fulfilled' && result.value) {
-            processedProjects.push(result.value);
+      for (let i = 0; i < allRepos.length; i++) {
+        try {
+          const project = await this.processRepository(allRepos[i]);
+          if (project) {
+            processedProjects.push(project);
           }
-        });
-        
-        // Small delay between batches to be nice to GitHub API
-        if (i + batchSize < allRepos.length) {
-          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          // Update progress every 10 repos
+          if (i % 10 === 0) {
+            this.updateLoadingMessage(`Processing ${i + 1}/${allRepos.length} repositories...`);
+          }
+          
+          // Small delay between requests
+          if (i % 5 === 0 && i < allRepos.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+          
+        } catch (error) {
+          console.warn(`Failed to process ${allRepos[i].name}:`, error);
+          // Still include the repo with basic info
+          const basicProject = this.createBasicProject(allRepos[i]);
+          processedProjects.push(basicProject);
         }
       }
       
@@ -88,9 +106,8 @@ class GitHubProjects {
   }
 
   async processRepository(repo) {
-    // Skip forks and archived repos unless they have stars
-    if (repo.fork && repo.stargazers_count === 0) return null;
-    if (repo.archived && repo.stargazers_count === 0) return null;
+    // NO FILTERING - include ALL repositories
+    // Forks, archived, empty - everything goes!
     
     try {
       const readme = await this.fetchReadme(repo.name);
@@ -109,26 +126,34 @@ class GitHubProjects {
         has_pages: repo.has_pages,
         size: repo.size,
         archived: repo.archived,
-        fork: repo.fork
+        fork: repo.fork,
+        empty: repo.size === 0, // Mark empty repos
+        private: repo.private
       };
     } catch (error) {
       // If processing fails, return basic repo info
-      return {
-        name: repo.name,
-        description: this.generateDescription(repo, null),
-        url: repo.html_url,
-        language: repo.language,
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        updated: repo.updated_at,
-        topics: repo.topics || [],
-        homepage: repo.homepage,
-        has_pages: repo.has_pages,
-        size: repo.size,
-        archived: repo.archived,
-        fork: repo.fork
-      };
+      return this.createBasicProject(repo);
     }
+  }
+
+  createBasicProject(repo) {
+    return {
+      name: repo.name,
+      description: this.generateDescription(repo, null),
+      url: repo.html_url,
+      language: repo.language,
+      stars: repo.stargazers_count,
+      forks: repo.forks_count,
+      updated: repo.updated_at,
+      topics: repo.topics || [],
+      homepage: repo.homepage,
+      has_pages: repo.has_pages,
+      size: repo.size,
+      archived: repo.archived,
+      fork: repo.fork,
+      empty: repo.size === 0,
+      private: repo.private
+    };
   }
 
   generateDescription(repo, readmeContent) {
@@ -141,26 +166,26 @@ class GitHubProjects {
       return repo.description;
     }
     
-    // Generate a description based on repo name and properties
+    // Generate a description based on repo properties
     const name = this.formatProjectName(repo.name);
     const parts = [];
     
-    if (repo.fork) parts.push('Forked');
-    if (repo.archived) parts.push('Archived');
-    if (repo.language) parts.push(`${repo.language} project`);
+    if (repo.fork) parts.push('Forked repository');
+    if (repo.archived) parts.push('Archived project');
+    if (repo.empty) parts.push('Empty repository');
+    if (repo.language) parts.push(`${repo.language} code`);
     
     if (parts.length > 0) {
-      return `${parts.join(' • ')} • ${name}`;
+      return `${name} • ${parts.join(' • ')}`;
     }
     
-    return `${name} - GitHub repository`;
+    return `${name} • GitHub repository`;
   }
 
   async fetchReadme(repoName) {
     try {
       const response = await fetch(
-        `https://api.github.com/repos/${this.username}/${repoName}/readme`,
-        { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+        `https://api.github.com/repos/${this.username}/${repoName}/readme`
       );
       
       if (!response.ok) return null;
@@ -182,26 +207,25 @@ class GitHubProjects {
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
       
-      // Skip empty lines, headers, badges, code blocks, etc.
+      // Skip empty lines, headers, badges, etc.
       if (line && 
           !line.startsWith('#') && 
           !line.startsWith('![') && 
           !line.startsWith('<') && 
           !line.startsWith('```') &&
-          !line.startsWith('|') && // Tables
+          !line.startsWith('|') &&
           !line.includes('badge') &&
           !line.includes('license') &&
           !line.startsWith('<!--') &&
-          line.length > 30 && // Minimum length for meaningful content
-          line.length < 200) { // Maximum length for card display
+          line.length > 20 &&
+          line.length < 200) {
         
-        // Clean up the line
         const cleanLine = line
           .replace(/[#*`\[\]()]/g, '')
           .replace(/\s+/g, ' ')
           .trim();
         
-        if (cleanLine.length > 20) {
+        if (cleanLine.length > 15) {
           return cleanLine;
         }
       }
@@ -219,7 +243,9 @@ class GitHubProjects {
       'Angular': 'angular', 'Node.js': 'node', 'Express': 'express',
       'Django': 'django', 'Flask': 'flask', 'Spring': 'spring', 'Laravel': 'laravel',
       'Shell': 'shell', 'Dockerfile': 'docker', 'Makefile': 'code',
-      'Jupyter Notebook': 'python', 'TeX': 'code', 'MATLAB': 'code'
+      'Jupyter Notebook': 'python', 'TeX': 'code', 'MATLAB': 'code',
+      'C': 'code', 'Objective-C': 'code', 'Scala': 'code', 'Haskell': 'code',
+      'Elixir': 'code', 'Clojure': 'code', 'Perl': 'code', 'Lua': 'code'
     };
   }
 
@@ -234,7 +260,6 @@ class GitHubProjects {
       'py': `<circle cx="50" cy="50" r="40" fill="#3776ab"/><path d="M35 35l15 15-15 15" stroke="#ffd343" stroke-width="4" fill="none"/>`,
       'html': `<rect x="20" y="20" width="60" height="60" rx="10" fill="#e34f26"/><text x="50" y="52" text-anchor="middle" fill="#fff" font-family="Arial" font-size="14" font-weight="bold">HTML</text>`,
       'css': `<rect x="20" y="20" width="60" height="60" rx="10" fill="#1572b6"/><text x="50" y="52" text-anchor="middle" fill="#fff" font-family="Arial" font-size="14" font-weight="bold">CSS</text>`,
-      'react': `<circle cx="50" cy="50" r="25" fill="#61dafb" opacity="0.3"/><circle cx="50" cy="50" r="20" fill="none" stroke="#61dafb" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="none" stroke="#61dafb" stroke-width="1" opacity="0.6"/>`,
       'code': `<rect x="25" y="25" width="50" height="50" rx="10" fill="url(#logoGrad)" opacity="0.3"/><rect x="35" y="35" width="30" height="30" fill="url(#logoGrad)"/><path d="M45 45l5-5-5-5M55 45l-5-5 5-5" fill="none" stroke="#fff" stroke-width="2"/><line x1="50" y1="40" x2="50" y2="50" stroke="#fff" stroke-width="2"/>`
     };
     return icons[iconName] || icons['code'];
@@ -246,6 +271,20 @@ class GitHubProjects {
     
     const placeholder = document.querySelector('.project-placeholder');
     
+    // Show count message
+    const countMessage = document.createElement('div');
+    countMessage.className = 'github-count-message';
+    countMessage.innerHTML = `
+      <p>Showing <strong>${projects.length}</strong> public repositories from <a href="https://github.com/${this.username}" target="_blank">@${this.username}</a></p>
+    `;
+    
+    if (placeholder) {
+      this.projectsGrid.insertBefore(countMessage, placeholder);
+    } else {
+      this.projectsGrid.appendChild(countMessage);
+    }
+    
+    // Add all projects
     projects.forEach(project => {
       const projectCard = this.createProjectCard(project);
       if (placeholder) {
@@ -255,7 +294,7 @@ class GitHubProjects {
       }
     });
     
-    console.log(`Displayed ${projects.length} GitHub projects`);
+    console.log(`✅ Displayed ${projects.length} GitHub projects`);
   }
 
   createProjectCard(project) {
@@ -287,6 +326,7 @@ class GitHubProjects {
             ${project.language ? `<span class="project-badge language">${project.language}</span>` : ''}
             ${project.archived ? '<span class="project-badge archived">Archived</span>' : ''}
             ${project.fork ? '<span class="project-badge fork">Fork</span>' : ''}
+            ${project.empty ? '<span class="project-badge empty">Empty</span>' : ''}
             ${project.has_pages ? '<span class="project-badge demo">Demo</span>' : ''}
           </div>
         </div>
@@ -352,7 +392,7 @@ class GitHubProjects {
   }
 
   truncateDescription(description, maxLength) {
-    if (description.length <= maxLength) return description;
+    if (!description || description.length <= maxLength) return description;
     return description.substring(0, maxLength).trim() + '...';
   }
 
@@ -378,6 +418,7 @@ class GitHubProjects {
   }
 
   formatSize(kb) {
+    if (kb === 0) return 'Empty';
     if (kb < 1024) return `${kb} KB`;
     const mb = (kb / 1024).toFixed(1);
     return `${mb} MB`;
@@ -390,10 +431,26 @@ class GitHubProjects {
     loadingDiv.innerHTML = `
       <div class="loading-content">
         <div class="loading-spinner"></div>
-        <p>Loading your GitHub repositories...</p>
+        <p>Loading all public repositories from GitHub...</p>
+        <p class="loading-detail">This may take a moment for ${this.username}'s ${this.estimateRepoCount()} repositories</p>
       </div>
     `;
     this.projectsGrid.appendChild(loadingDiv);
+  }
+
+  updateLoadingMessage(message) {
+    const loadingDiv = document.getElementById('github-loading');
+    if (loadingDiv) {
+      const detailElement = loadingDiv.querySelector('.loading-detail');
+      if (detailElement) {
+        detailElement.textContent = message;
+      }
+    }
+  }
+
+  estimateRepoCount() {
+    // You can adjust this based on what you know about your repo count
+    return '70+';
   }
 
   removeLoadingState() {
@@ -416,15 +473,9 @@ class GitHubProjects {
           <line x1="12" y1="16" x2="12.01" y2="16"></line>
         </svg>
         <h3>Unable to load GitHub projects</h3>
-        <p>Check your connection or <a href="https://github.com/${this.username}" target="_blank">view on GitHub</a></p>
+        <p>Check your connection or <a href="https://github.com/${this.username}" target="_blank">view @${this.username} on GitHub</a></p>
       </div>
     `;
     this.projectsGrid.appendChild(errorDiv);
-  }
-
-  enableSearch() {
-    // The search functionality from projects.js will automatically work
-    // since we're adding data-title and data-description attributes
-    console.log('GitHub projects search enabled');
   }
 }
