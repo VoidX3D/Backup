@@ -1,5 +1,5 @@
 // ====================================
-// SPACE HUB - PROJECTS JAVASCRIPT (UPDATED)
+// SPACE HUB - PROJECTS JAVASCRIPT (FIXED)
 // ====================================
 
 class ProjectsPage {
@@ -86,7 +86,7 @@ class ProjectsPage {
   }
   
   initAnimations() {
-    // Animate project cards on scroll
+    // Animate project cards on scroll (only on initial load)
     gsap.utils.toArray('.project-card').forEach((card, index) => {
       gsap.from(card, {
         scrollTrigger: {
@@ -242,29 +242,7 @@ class ProjectsPage {
     this.projectsGrid.classList.remove(`${this.currentView}-view`);
     this.projectsGrid.classList.add(`${view}-view`);
     
-    // Ensure GitHub projects have proper list view styling
-    if (view === 'list') {
-      this.ensureGitHubListViewStyling();
-    }
-    
-    // Animate transition
-    gsap.from('.project-card', {
-      y: 20,
-      opacity: 0,
-      duration: 0.4,
-      stagger: 0.05,
-      ease: 'power2.out'
-    });
-    
     this.currentView = view;
-  }
-
-  // NEW METHOD: Ensure GitHub projects have list view styling
-  ensureGitHubListViewStyling() {
-    const githubProjects = this.projectsGrid.querySelectorAll('.github-project');
-    githubProjects.forEach(project => {
-      project.classList.add('github-project-list-view');
-    });
   }
   
   showAddProjectModal() {
