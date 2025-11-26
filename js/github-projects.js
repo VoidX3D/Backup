@@ -1,4 +1,4 @@
-// github-projects.js
+// github-projects.js (UPDATED)
 class GitHubProjects {
   constructor() {
     this.username = 'VoidX3D';
@@ -16,8 +16,11 @@ class GitHubProjects {
       // Filter to show only non-forked repos for better presentation
       const originalRepos = data.repositories.filter(repo => !repo.fork);
       
-      this.displayProjects(originalRepos);
-      this.enableViewToggle(); // Enable list view support
+      const githubCards = this.displayProjects(originalRepos);
+      this.enableViewToggle();
+      
+      // NEW: Integrate with main projects page search system
+      this.integrateWithProjectsPage(githubCards);
       
     } catch (error) {
       console.error('Error loading GitHub projects:', error);
@@ -65,6 +68,19 @@ class GitHubProjects {
     }
   }
 
+  // NEW METHOD: Integrate GitHub projects with main projects page
+  integrateWithProjectsPage(githubCards) {
+    if (window.projectsPage && githubCards.length > 0) {
+      // Wait a brief moment to ensure projects page is fully initialized
+      setTimeout(() => {
+        window.projectsPage.addGitHubProjects(githubCards);
+        console.log('✅ GitHub projects integrated with search and view system');
+      }, 100);
+    } else {
+      console.warn('❌ Projects page not found or no GitHub cards to integrate');
+    }
+  }
+
   getLanguageIcons() {
     return {
       'JavaScript': 'js', 'TypeScript': 'ts', 'Python': 'py', 'Java': 'java',
@@ -99,6 +115,7 @@ class GitHubProjects {
     this.removeLoadingState();
     
     const placeholder = document.querySelector('.project-placeholder');
+    const githubCards = [];
     
     // Show repository count and info
     const countMessage = document.createElement('div');
@@ -117,9 +134,11 @@ class GitHubProjects {
       this.projectsGrid.appendChild(countMessage);
     }
     
-    // Add all projects
+    // Add all projects and collect the created cards
     projects.forEach(project => {
       const projectCard = this.createProjectCard(project);
+      githubCards.push(projectCard);
+      
       if (placeholder) {
         this.projectsGrid.insertBefore(projectCard, placeholder);
       } else {
@@ -128,6 +147,7 @@ class GitHubProjects {
     });
     
     console.log(`✅ Displayed ${projects.length} GitHub projects`);
+    return githubCards; // Return the created cards for integration
   }
 
   getProjectStats(projects) {
@@ -331,8 +351,6 @@ class GitHubProjects {
   }
 
   enableViewToggle() {
-    // The view toggle should already work with the existing projects.js
-    // This method ensures GitHub projects are properly styled in list view
     console.log('✅ GitHub projects list view support enabled');
     
     // Observe for view changes and ensure proper styling
@@ -354,7 +372,6 @@ class GitHubProjects {
     // Ensure all GitHub projects have proper list view styling
     const githubProjects = this.projectsGrid.querySelectorAll('.github-project');
     githubProjects.forEach(project => {
-      // The CSS should handle most of this, but we can add specific classes if needed
       project.classList.add('github-project-list-view');
     });
   }
