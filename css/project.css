@@ -1,1 +1,112 @@
+/* ============================================
+   PROJECTS PAGE — ULTRA CLEAN, SHARP EDGES
+   ============================================ */
 
+.projects-section {
+  padding: 120px 5vw;
+}
+
+.projects-title {
+  font-family: Orbitron, sans-serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.projects-subtitle {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-bottom: 40px;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.view-btn {
+  padding: 12px 28px;
+  font-weight: 700;
+  border: 1px solid var(--color-accent-primary);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: 0.25s;
+}
+
+.view-btn.active,
+.view-btn:hover {
+  background: var(--color-accent-primary);
+  color: black;
+}
+
+/* GRID */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  transition: all 0.3s ease;
+}
+
+/* LIST */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* CARD */
+.project-card {
+  background: var(--color-bg-card);
+  border: 2px solid rgba(0, 212, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.07);
+  transition: transform .25s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+.project-img img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+
+.project-content {
+  padding: 24px;
+}
+
+.project-title {
+  font-size: 1.7rem;
+  font-family: Orbitron, sans-serif;
+  margin-bottom: 10px;
+}
+
+.project-desc {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid var(--color-accent-primary);
+  color: white;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.project-btn:hover {
+  background: var(--color-accent-primary);
+  color: black;
+}
