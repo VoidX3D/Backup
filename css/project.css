@@ -460,3 +460,159 @@
   border-radius: 2px;
   font-weight: 600;
 }
+/* Enhanced GitHub project styles */
+.project-badges {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.project-badge.language {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.project-badge.demo {
+  background: var(--gradient-secondary);
+  color: white;
+}
+
+.project-badge.website {
+  background: linear-gradient(135deg, #00ff88, #00cc66);
+  color: white;
+}
+
+.project-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.project-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.project-stats svg {
+  width: 14px;
+  height: 14px;
+}
+
+.project-topics {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.project-topic {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(123, 47, 247, 0.2);
+  color: var(--color-accent-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.project-topic-more {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.project-links {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.project-link:hover {
+  gap: var(--spacing-md);
+  background: rgba(0, 212, 255, 0.2);
+}
+
+.github-error {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--color-text-muted);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.error-content svg {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-muted);
+}
+
+.error-content h3 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .project-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+  
+  .project-links {
+    justify-content: space-between;
+  }
+  
+  .project-meta {
+    justify-content: center;
+  }
+}
+
+/* Loading animation for cards */
+.project-card.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.project-card.loading .project-image {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.6; }
+}
