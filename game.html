@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Hub - Sincere's Projects</title>
+  <title>Space Explorer Game - Space Hub</title>
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- GSAP for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game.css">
 </head>
-<body>
+<body class="game-page">
   <!-- Animated Star Background -->
   <div class="space-background">
     <canvas id="starfield"></canvas>
@@ -38,12 +38,12 @@
         </svg>
         <div class="brand-text">
           <span class="brand-name">SPACE HUB</span>
-          <span class="brand-subtitle">Interactive Projects</span>
+          <span class="brand-subtitle">Space Explorer</span>
         </div>
       </div>
       
       <div class="nav-links">
-        <a href="index.html" class="nav-link active">
+        <a href="index.html" class="nav-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
           </svg>
@@ -66,7 +66,7 @@
           </svg>
           <span>Projects</span>
         </a>
-        <a href="game.html" class="nav-link">
+        <a href="game.html" class="nav-link active">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 12h12M12 6v12"></path>
             <rect x="5" y="5" width="14" height="14" rx="2"></rect>
@@ -102,249 +102,109 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          <span class="title-line">Explore The</span>
-          <span class="title-line gradient-text">Universe of</span>
-          <span class="title-line">Knowledge</span>
+  <!-- Game Hero -->
+  <section class="game-hero">
+    <div class="container">
+      <div class="game-hero-content">
+        <h1 class="page-title">
+          <span class="gradient-text">Space Explorer</span>
         </h1>
-        <p class="hero-description">
-          A production-ready space-themed platform showcasing interactive mathematics,
-          creative projects, and educational content. Built for presentations and learning.
-        </p>
-        <div class="hero-buttons">
-          <a href="main.html" class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            <span>Explore Maths</span>
-          </a>
-          <a href="projects.html" class="btn btn-secondary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            </svg>
-            <span>View Projects</span>
-          </a>
-        </div>
-        
-        <!-- Stats -->
-        <div class="hero-stats">
-          <div class="stat-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="9" y1="3" x2="9" y2="21"></line>
-            </svg>
-            <div class="stat-text">
-              <span class="stat-number">5+</span>
-              <span class="stat-label">Projects</span>
-            </div>
-          </div>
-          <div class="stat-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <div class="stat-text">
-              <span class="stat-number">10+</span>
-              <span class="stat-label">Topics</span>
-            </div>
-          </div>
-          <div class="stat-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-            <div class="stat-text">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Interactive</span>
-            </div>
-          </div>
-        </div>
+        <p class="page-subtitle">Navigate through space, avoid asteroids, and explore the cosmos!</p>
       </div>
-      
-      <div class="hero-visual">
-        <div class="floating-planet">
-          <svg width="400" height="400" viewBox="0 0 400 400">
-            <defs>
-              <radialGradient id="planetGrad" cx="40%" cy="40%">
-                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#7b2ff7;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#1a0033;stop-opacity:1" />
-              </radialGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            <circle cx="200" cy="200" r="120" fill="url(#planetGrad)" filter="url(#glow)"/>
-            <ellipse cx="200" cy="200" rx="180" ry="30" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.6" transform="rotate(-20 200 200)"/>
-            <ellipse cx="200" cy="200" rx="180" ry="30" fill="none" stroke="#7b2ff7" stroke-width="2" opacity="0.4" transform="rotate(-20 200 200)" stroke-dasharray="10 5"/>
-          </svg>
+    </div>
+  </section>
+
+  <!-- Game Container -->
+  <section class="game-section">
+    <div class="container">
+      <div class="game-container">
+        <!-- Game Stats -->
+        <div class="game-stats">
+          <div class="stat">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="score">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Lives</span>
+            <span class="stat-value" id="lives">3</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level</span>
+            <span class="stat-value" id="level">1</span>
+          </div>
+        </div>
+
+        <!-- Game Canvas -->
+        <div class="game-canvas-container">
+          <canvas id="gameCanvas" width="800" height="500"></canvas>
           
-          <!-- Orbiting elements -->
-          <div class="orbit orbit-1">
-            <div class="orbit-object"></div>
-          </div>
-          <div class="orbit orbit-2">
-            <div class="orbit-object"></div>
-          </div>
-          <div class="orbit orbit-3">
-            <div class="orbit-object"></div>
+          <!-- Game Controls -->
+          <div class="game-controls">
+            <div class="control-group">
+              <button class="control-btn" id="leftBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="control-btn" id="upBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+              </button>
+              <button class="control-btn" id="rightBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+            <button class="control-btn action-btn" id="shootBtn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Features Section -->
-  <section class="features-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">What's Inside</h2>
-        <p class="section-subtitle">Explore interactive learning modules and creative projects</p>
-      </div>
-      
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
+        <!-- Game Instructions -->
+        <div class="game-instructions">
+          <div class="instruction-card">
+            <h3>How to Play</h3>
+            <ul>
+              <li>Use <strong>Arrow Keys</strong> or <strong>Touch Controls</strong> to move your spaceship</li>
+              <li>Press <strong>Spacebar</strong> or tap the <strong>Shoot Button</strong> to fire lasers</li>
+              <li>Avoid asteroids and collect power-ups</li>
+              <li>Destroy asteroids to earn points</li>
+              <li>Complete levels to progress</li>
+            </ul>
           </div>
-          <h3 class="feature-title">Mathematics 360°</h3>
-          <p class="feature-description">
-            Interactive unit circle visualization, trigonometric identities, and comprehensive Class 9 mathematics content with embedded presentations.
-          </p>
-          <a href="main.html" class="feature-link">
-            <span>Explore Now</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-          </div>
-          <h3 class="feature-title">Project Gallery</h3>
-          <p class="feature-description">
-            Showcase of creative projects including games, simulations, and presentations. Toggle between grid and list views for easy browsing.
-          </p>
-          <a href="projects.html" class="feature-link">
-            <span>View Projects</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 12h12M12 6v12"></path>
-              <rect x="5" y="5" width="14" height="14" rx="2"></rect>
-            </svg>
-          </div>
-          <h3 class="feature-title">Interactive Game</h3>
-          <p class="feature-description">
-            Fun, educational HTML5 canvas game demonstrating physics and interaction principles. Perfect for breaks between study sessions.
-          </p>
-          <a href="game.html" class="feature-link">
-            <span>Play Game</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">More Coming Soon</h3>
-          <p class="feature-description">
-            Additional learning modules, interactive demonstrations, and educational tools are being developed. Stay tuned for updates!
-          </p>
-          <a href="about.html" class="feature-link">
-            <span>Learn More</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Quick Access Section -->
-  <section class="quick-access-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Quick Access</h2>
-        <p class="section-subtitle">Jump directly to featured content</p>
-      </div>
-      
-      <div class="quick-grid">
-        <a href="main.html" class="quick-card">
-          <div class="quick-card-bg"></div>
-          <svg class="quick-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="12" x2="16" y2="16"></line>
-          </svg>
-          <h3>Unit Circle</h3>
-          <p>Interactive visualization</p>
-        </a>
-        
-        <a href="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/edit?usp=sharing" target="_blank" class="quick-card">
-          <div class="quick-card-bg"></div>
-          <svg class="quick-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="4" width="18" height="15" rx="2"></rect>
-            <line x1="9" y1="9" x2="15" y2="9"></line>
-            <line x1="9" y1="13" x2="15" y2="13"></line>
-          </svg>
-          <h3>Presentation</h3>
-          <p>Google Slides</p>
-        </a>
-        
-        <a href="projects.html" class="quick-card">
-          <div class="quick-card-bg"></div>
-          <svg class="quick-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-          </svg>
-          <h3>All Projects</h3>
-          <p>Browse collection</p>
-        </a>
-        
-        <a href="game.html" class="quick-card">
-          <div class="quick-card-bg"></div>
-          <svg class="quick-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-          <h3>Play Game</h3>
-          <p>Interactive fun</p>
-        </a>
+          <div class="powerups-info">
+            <h3>Power-ups</h3>
+            <div class="powerup-list">
+              <div class="powerup-item">
+                <div class="powerup-icon shield"></div>
+                <span>Shield - Temporary protection</span>
+              </div>
+              <div class="powerup-item">
+                <div class="powerup-icon rapid-fire"></div>
+                <span>Rapid Fire - Faster shooting</span>
+              </div>
+              <div class="powerup-item">
+                <div class="powerup-icon extra-life"></div>
+                <span>Extra Life - Bonus life</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Actions -->
+        <div class="game-actions">
+          <button class="btn btn-primary" id="startBtn">Start Game</button>
+          <button class="btn btn-secondary" id="pauseBtn">Pause</button>
+          <button class="btn btn-secondary" id="resetBtn">Reset</button>
+        </div>
       </div>
     </div>
   </section>
@@ -394,5 +254,6 @@
   </footer>
 
   <script src="js/app.js"></script>
+  <script src="js/game.js"></script>
 </body>
 </html>
