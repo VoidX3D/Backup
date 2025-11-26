@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Hub - Sincere's Projects</title>
+  <title>Projects Gallery - Space Hub</title>
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,9 +13,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/projects.css">
 </head>
-<body>
+<body class="projects-page">
   <!-- Animated Star Background -->
   <div class="space-background">
     <canvas id="starfield"></canvas>
@@ -39,12 +39,12 @@
         </svg>
         <div class="brand-text">
           <span class="brand-name">SPACE HUB</span>
-          <span class="brand-subtitle">Interactive Projects</span>
+          <span class="brand-subtitle">Projects</span>
         </div>
       </div>
       
       <div class="nav-links">
-        <a href="index.html" class="nav-link active">
+        <a href="index.html" class="nav-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
           </svg>
@@ -58,7 +58,7 @@
           </svg>
           <span>Maths</span>
         </a>
-        <a href="projects.html" class="nav-link">
+        <a href="projects.html" class="nav-link active">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"></rect>
             <rect x="14" y="3" width="7" height="7"></rect>
@@ -102,93 +102,308 @@
       </button>
     </div>
   </nav>
-<section class="projects-section">
-  <div class="projects-header">
-    <h1 class="projects-title">My Projects</h1>
-    <p class="projects-subtitle">Explore everything I’ve built—from APIs to full web apps.</p>
 
-    <div class="view-toggle">
-      <button id="gridViewBtn" class="view-btn active">Grid View</button>
-      <button id="listViewBtn" class="view-btn">List View</button>
-    </div>
-  </div>
-
-  <div id="projectsContainer" class="projects-grid">
-
-    <!-- Project 1 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">AniPaca</h3>
-        <p class="project-desc">A complete anime discovery and metadata platform powered by my custom API.</p>
-        <a href="https://anipaca2.vercel.app" class="project-btn" target="_blank">Visit Project</a>
+  <!-- Projects Hero -->
+  <section class="projects-hero">
+    <div class="container">
+      <div class="projects-hero-content">
+        <h1 class="page-title">
+          <span class="gradient-text">Project Gallery</span>
+        </h1>
+        <p class="page-subtitle">Explore my collection of interactive projects, games, and presentations</p>
       </div>
     </div>
+  </section>
 
-    <!-- Project 2 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">AniWave</h3>
-        <p class="project-desc">Anime streaming interface with a sleek dark UI and API integration.</p>
-        <a href="https://aniwave.free.nf" class="project-btn" target="_blank">Visit Project</a>
+  <!-- View Toggle & Search -->
+  <section class="projects-controls">
+    <div class="container">
+      <div class="controls-wrapper">
+        <div class="search-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search projects...">
+        </div>
+        
+        <div class="view-toggle">
+          <button class="toggle-btn active" data-view="grid">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Grid</span>
+          </button>
+          <button class="toggle-btn" data-view="list">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            <span>List</span>
+          </button>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Project 3 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">Heroic Spirit</h3>
-        <p class="project-desc">My anime list app with backend features and user-friendly UI.</p>
-        <a href="https://heroic-spirit-production.up.railway.app/" class="project-btn" target="_blank">Visit Project</a>
+  <!-- Projects Grid -->
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Project Card 1 -->
+        <article class="project-card" data-category="game" data-title="Bird Game">
+          <div class="project-image">
+            <svg class="project-icon" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <linearGradient id="birdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="80" fill="url(#birdGrad)" opacity="0.2"/>
+              <path d="M100 60 Q120 80, 100 100 Q80 80, 100 60" fill="url(#birdGrad)"/>
+              <circle cx="90" cy="75" r="5" fill="#fff"/>
+              <path d="M70 100 L50 110 L70 120" fill="url(#birdGrad)"/>
+            </svg>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Bird Game</h3>
+              <span class="project-badge">Scratch</span>
+            </div>
+            <p class="project-description">
+              A fun and addictive flappy bird-style game built with Scratch. Navigate through obstacles and achieve the highest score!
+            </p>
+            <div class="project-footer">
+              <span class="project-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                2024
+              </span>
+              <a href="https://scratch.mit.edu/projects/1240631196/" target="_blank" class="project-link">
+                <span>View Project</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project Card 2 -->
+        <article class="project-card" data-category="music" data-title="Interactive Piano">
+          <div class="project-image">
+            <svg class="project-icon" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <linearGradient id="pianoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#7b2ff7;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#ff006e;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <rect x="40" y="60" width="120" height="80" rx="5" fill="url(#pianoGrad)" opacity="0.2"/>
+              <rect x="50" y="70" width="15" height="50" rx="2" fill="url(#pianoGrad)"/>
+              <rect x="70" y="70" width="15" height="50" rx="2" fill="url(#pianoGrad)"/>
+              <rect x="90" y="70" width="15" height="50" rx="2" fill="url(#pianoGrad)"/>
+              <rect x="110" y="70" width="15" height="50" rx="2" fill="url(#pianoGrad)"/>
+              <rect x="130" y="70" width="15" height="50" rx="2" fill="url(#pianoGrad)"/>
+            </svg>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Interactive Piano</h3>
+              <span class="project-badge">Scratch</span>
+            </div>
+            <p class="project-description">
+              Play beautiful melodies with this interactive virtual piano. Features multiple octaves and realistic sound effects.
+            </p>
+            <div class="project-footer">
+              <span class="project-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                2024
+              </span>
+              <a href="https://scratch.mit.edu/projects/1240633442/" target="_blank" class="project-link">
+                <span>View Project</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project Card 3 -->
+        <article class="project-card" data-category="presentation" data-title="Academic Presentation">
+          <div class="project-image">
+            <svg class="project-icon" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <linearGradient id="presGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#00ff88;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <rect x="40" y="50" width="120" height="100" rx="5" fill="url(#presGrad)" opacity="0.2"/>
+              <line x1="60" y1="70" x2="140" y2="70" stroke="url(#presGrad)" stroke-width="3"/>
+              <line x1="60" y1="90" x2="140" y2="90" stroke="url(#presGrad)" stroke-width="3"/>
+              <line x1="60" y1="110" x2="120" y2="110" stroke="url(#presGrad)" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Academic Presentation</h3>
+              <span class="project-badge">Slides</span>
+            </div>
+            <p class="project-description">
+              Comprehensive presentation covering key academic topics with detailed explanations and visual aids.
+            </p>
+            <div class="project-footer">
+              <span class="project-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                2024
+              </span>
+              <a href="https://docs.google.com/presentation/d/1Apcn5BHwJXvm8jiUCSONLkwMaYmqxnOr/edit?usp=sharing&ouid=107283669815638045691&rtpof=true&sd=true" target="_blank" class="project-link">
+                <span>View Project</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project Card 4 - Mathematics -->
+        <article class="project-card" data-category="math" data-title="Mathematics 360°">
+          <div class="project-image">
+            <svg class="project-icon" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <linearGradient id="mathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#ff006e;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="70" fill="none" stroke="url(#mathGrad)" stroke-width="4" opacity="0.3"/>
+              <line x1="100" y1="100" x2="170" y2="100" stroke="url(#mathGrad)" stroke-width="3"/>
+              <circle cx="170" cy="100" r="8" fill="url(#mathGrad)"/>
+              <path d="M100 30 A70 70 0 0 1 170 100" fill="none" stroke="url(#mathGrad)" stroke-width="2" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Mathematics 360°</h3>
+              <span class="project-badge">Interactive</span>
+            </div>
+            <p class="project-description">
+              Interactive unit circle visualization with trigonometric functions, identities, and comprehensive learning materials.
+            </p>
+            <div class="project-footer">
+              <span class="project-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                2024
+              </span>
+              <a href="main.html" class="project-link">
+                <span>View Project</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project Card 5 - Space Game -->
+        <article class="project-card" data-category="game" data-title="Space Explorer Game">
+          <div class="project-image">
+            <svg class="project-icon" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <linearGradient id="gameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <polygon points="100,40 120,120 100,110 80,120" fill="url(#gameGrad)" opacity="0.3"/>
+              <circle cx="90" cy="60" r="3" fill="#fff"/>
+              <circle cx="110" cy="60" r="3" fill="#fff"/>
+              <path d="M100 120 L100 160" stroke="url(#gameGrad)" stroke-width="8"/>
+            </svg>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Space Explorer Game</h3>
+              <span class="project-badge">HTML5</span>
+            </div>
+            <p class="project-description">
+              Navigate through space, avoid asteroids, and explore the cosmos in this interactive HTML5 canvas game.
+            </p>
+            <div class="project-footer">
+              <span class="project-date">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                2024
+              </span>
+              <a href="game.html" class="project-link">
+                <span>View Project</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Add More Project Placeholder -->
+        <article class="project-card project-placeholder">
+          <div class="placeholder-content">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <h3>Add Your Project</h3>
+            <p>Click to add a new project to your gallery</p>
+          </div>
+        </article>
       </div>
     </div>
-
-    <!-- Project 4 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">AniWatch API</h3>
-        <p class="project-desc">High-performance anime metadata API for devs.</p>
-        <a href="https://github.com/VoidX3D/aniwatch-api" class="project-btn" target="_blank">GitHub Repo</a>
-      </div>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">Sincere Web Architect</h3>
-        <p class="project-desc">A professional portfolio with animations, gradients, and API features.</p>
-        <a href="https://github.com/VoidX3D/sincere-web-architect" class="project-btn" target="_blank">GitHub Repo</a>
-      </div>
-    </div>
-
-    <!-- Project 6 -->
-    <div class="project-card">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=1200&q=80">
-      </div>
-      <div class="project-content">
-        <h3 class="project-title">Quest For The Core</h3>
-        <p class="project-desc">A Roblox elemental adventure game with combat, quests, and islands.</p>
-        <a href="#" class="project-btn" target="_blank">Gameplay Soon</a>
-      </div>
-    </div>
-
-  </div>
-</section>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
@@ -235,5 +450,6 @@
   </footer>
 
   <script src="js/app.js"></script>
+  <script src="js/projects.js"></script>
 </body>
 </html>
