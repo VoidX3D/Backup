@@ -1,224 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Projects | Space Hub — VoidX3D</title>
-
-  <!-- Fonts (match your site) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Your main theme CSS -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Hub - Sincere's Projects</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Page-specific minimal CSS to ensure layout parity (keeps theme) -->
-  <style>
-    :root {
-      --card-gap: 20px;
-    }
-
-    body { min-height:100vh; }
-
-    .page-header {
-      padding: 72px 20px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-
-    .page-header h1 {
-      font-family: Orbitron, sans-serif;
-      font-size: 2rem;
-      color: var(--color-accent-primary);
-      margin: 0;
-    }
-
-    .controls {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .search {
-      display:flex;
-      gap:8px;
-      align-items:center;
-      background: var(--color-bg-card);
-      padding:8px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.04);
-    }
-    .search input{
-      background:transparent;border:0;color:var(--color-text-primary);outline:none;width:240px;
-    }
-
-    .view-toggle {
-      display:flex;
-      gap:8px;
-      align-items:center;
-    }
-
-    .toggle-btn {
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--color-text-secondary);
-      padding:8px 12px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-    }
-    .toggle-btn.active {
-      color:var(--color-accent-primary);
-      background:rgba(0,212,255,0.06);
-      border-color:rgba(0,212,255,0.12);
-    }
-
-    .projects-wrap {
-      max-width:1200px;
-      margin: 26px auto 120px;
-      padding: 0 20px;
-    }
-
-    /* GRID */
-    .projects-grid.grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap: var(--card-gap);
-    }
-
-    .project-card {
-      background: var(--color-bg-card);
-      border-radius: 14px;
-      overflow: hidden;
-      border:1px solid rgba(255,255,255,0.04);
-      display:flex;
-      flex-direction:column;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-    .project-thumb {
-      width:100%;
-      height:160px;
-      object-fit:cover;
-      display:block;
-      background:linear-gradient(180deg, #0b1020, #0f1320);
-    }
-    .project-body {
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      flex:1;
-    }
-
-    .project-title { font-family:Orbitron; font-weight:700; color:var(--color-accent-primary); font-size:1.05rem; }
-    .project-desc { color:var(--color-text-secondary); font-size:0.95rem; flex:1; }
-    .project-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
-
-    .project-actions { margin-left:auto; display:flex; gap:8px; }
-    .btn-mini { padding:8px 12px; border-radius:10px; border:0; cursor:pointer; font-weight:700; }
-    .btn-open { background:var(--gradient-primary); color:#07121a; }
-    .btn-code { background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--color-text-secondary); }
-
-    /* LIST view */
-    .projects-grid.list { display:block; }
-    .projects-grid.list .project-card {
-      display:flex;
-      flex-direction:row;
-      gap:12px;
-      align-items:center;
-      padding:12px;
-    }
-    .projects-grid.list .project-thumb { width:160px; height:100px; border-radius:8px; flex:none; }
-    .projects-grid.list .project-body { padding:8px; }
-
-    /* tag pills */
-    .tag { padding:6px 10px; border-radius:999px; font-weight:700; font-size:0.8rem; color:var(--color-text-primary); background:linear-gradient(90deg,#001a22, #002532); border:1px solid rgba(255,255,255,0.03); }
-
-    /* empty state */
-    .empty {
-      text-align:center;
-      padding:80px 20px;
-      color:var(--color-text-secondary);
-      font-size:1.05rem;
-    }
-
-    /* responsive */
-    @media (max-width:760px){
-      .project-card { margin-bottom:8px; }
-      .search input{ width:120px; }
-    }
-  </style>
 </head>
 <body>
+  <!-- Animated Star Background -->
+  <div class="space-background">
+    <canvas id="starfield"></canvas>
+    <div class="nebula-overlay"></div>
+  </div>
 
-  <!-- top nav - reuse your navbar or include a small header -->
+  <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-brand">
-        <svg class="logo-icon" width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
-          <defs><linearGradient id="pG" x1="0" x2="1"><stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#7b2ff7"/></linearGradient></defs>
-          <circle cx="50" cy="50" r="40" stroke="url(#pG)" stroke-width="3" fill="none"></circle>
-          <path d="M50 20 L62 50 L50 80 L38 50 Z" fill="url(#pG)"></path>
+        <svg class="logo-icon" width="40" height="40" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
+          <path d="M50 15 L65 50 L50 85 L35 50 Z" fill="url(#logoGrad)"/>
+          <circle cx="50" cy="50" r="8" fill="#fff"/>
         </svg>
-        <div class="brand-text"><span class="brand-name">SPACE HUB</span></div>
+        <div class="brand-text">
+          <span class="brand-name">SPACE HUB</span>
+          <span class="brand-subtitle">Interactive Projects</span>
+        </div>
       </div>
-
+      
       <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="main.html" class="nav-link">Maths</a>
-        <a href="projects.html" class="nav-link active">Projects</a>
-        <a href="game.html" class="nav-link">Game</a>
+        <a href="index.html" class="nav-link active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="main.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>Maths</span>
+        </a>
+        <a href="projects.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="game.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 12h12M12 6v12"></path>
+            <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+          </svg>
+          <span>Game</span>
+        </a>
+        <a href="about.html" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>About</span>
+        </a>
       </div>
+      
+      <button class="theme-toggle" id="themeToggle">
+        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <!-- header -->
-  <header class="page-header">
-    <div>
-      <h1>Projects</h1>
-      <div class="small">All projects hard-coded. Rearrange by editing <code>js/projects.js</code> (the array order determines display).</div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <svg width="32" height="32" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="45" fill="none" stroke="url(#footerLogoGrad)" stroke-width="3"/>
+            <path d="M50 15 L65 50 L50 85 L35 50 Z" fill="url(#footerLogoGrad)"/>
+          </svg>
+          <div>
+            <h3>Space Hub</h3>
+            <p>Interactive Learning Platform</p>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Navigation</h4>
+            <a href="index.html">Home</a>
+            <a href="main.html">Mathematics</a>
+            <a href="projects.html">Projects</a>
+            <a href="game.html">Game</a>
+          </div>
+          <div class="footer-column">
+            <h4>Resources</h4>
+            <a href="about.html">About</a>
+            <a href="https://docs.google.com/presentation/d/1-5wmSSlkOv5NpkElI60drZrzJBN_CB0IpobnqN9Oizk/edit?usp=sharing" target="_blank">Presentation</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Sincere Bhattarai. All rights reserved.</p>
+        <p class="footer-tagline">Production-ready • Presentation-ready • Space-themed</p>
+      </div>
     </div>
+  </footer>
 
-    <div class="controls" role="search">
-      <div class="search" title="Search projects">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 21l-4.35-4.35"></path><circle cx="11" cy="11" r="6"></circle></svg>
-        <input id="searchInput" type="search" placeholder="Search projects..." aria-label="Search projects">
-      </div>
-
-      <div class="view-toggle" role="tablist" aria-label="View toggle">
-        <button id="btnGrid" class="toggle-btn active" aria-pressed="true" title="Grid view">Grid</button>
-        <button id="btnList" class="toggle-btn" aria-pressed="false" title="List view">List</button>
-      </div>
-
-      <div style="display:flex;gap:8px;align-items:center">
-        <select id="sortSelect" class="toggle-btn" title="Sort">
-          <option value="order">Default</option>
-          <option value="alpha">A → Z</option>
-          <option value="alpha-desc">Z → A</option>
-          <option value="new">Newest first</option>
-        </select>
-      </div>
-    </div>
-  </header>
-
-  <!-- projects -->
-  <main class="projects-wrap">
-    <section id="projectsGrid" class="projects-grid grid" aria-live="polite" aria-busy="false"></section>
-    <div id="emptyState" class="empty" hidden>No projects match your search.</div>
-  </main>
-
-  <!-- scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="js/projects.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
