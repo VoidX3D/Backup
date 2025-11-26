@@ -1,63 +1,22 @@
-// ====================================
-// SPACE HUB - PROJECTS JAVASCRIPT (FIXED)
-// ====================================
-
+// projects.js (UPDATED)
 class ProjectsPage {
   constructor() {
     this.projectsGrid = document.getElementById('projectsGrid');
     this.searchInput = document.getElementById('searchInput');
     this.viewToggleBtns = document.querySelectorAll('.toggle-btn');
     this.currentView = 'grid';
-    this.projects = [];
-    this.githubProjects = []; // Store GitHub projects separately
     
     this.init();
   }
   
   init() {
-    // Initialize projects data
-    this.collectProjects();
-    
-    // Set up event listeners
+    // Set up event listeners first
     this.setupEventListeners();
     
     // Initialize animations
     this.initAnimations();
     
     console.log('🚀 Projects page initialized!');
-  }
-  
-  collectProjects() {
-    // Collect all project cards (excluding GitHub projects and placeholder)
-    const projectCards = document.querySelectorAll('.project-card:not(.github-project):not(.project-placeholder)');
-    
-    this.projects = Array.from(projectCards).map(card => {
-      return {
-        element: card,
-        title: card.getAttribute('data-title') || card.querySelector('.project-title').textContent.toLowerCase(),
-        category: card.getAttribute('data-category') || 'general',
-        description: card.querySelector('.project-description').textContent.toLowerCase(),
-        isGitHub: false
-      };
-    });
-
-    console.log(`📁 Collected ${this.projects.length} local projects`);
-  }
-  
-  // NEW METHOD: Add GitHub projects to search system
-  addGitHubProjects(githubCards) {
-    const githubProjects = Array.from(githubCards).map(card => {
-      return {
-        element: card,
-        title: card.getAttribute('data-title') || card.querySelector('.project-title').textContent.toLowerCase(),
-        category: card.getAttribute('data-category') || 'code',
-        description: card.querySelector('.project-description').textContent.toLowerCase(),
-        isGitHub: true
-      };
-    });
-    
-    this.projects = [...this.projects, ...githubProjects];
-    console.log(`✅ Added ${githubProjects.length} GitHub projects to search system`);
   }
   
   setupEventListeners() {
@@ -86,7 +45,7 @@ class ProjectsPage {
   }
   
   initAnimations() {
-    // Animate project cards on scroll (only on initial load)
+    // Animate project cards on scroll
     gsap.utils.toArray('.project-card').forEach((card, index) => {
       gsap.from(card, {
         scrollTrigger: {
@@ -119,8 +78,9 @@ class ProjectsPage {
   filterProjects(searchTerm) {
     if (!searchTerm) {
       // Show all projects if search is empty
-      this.projects.forEach(project => {
-        project.element.style.display = 'flex';
+      const allCards = this.projectsGrid.querySelectorAll('.project-card');
+      allCards.forEach(card => {
+        card.style.display = 'flex';
       });
       this.hideNoResults();
       this.removeAllHighlights();
@@ -130,20 +90,27 @@ class ProjectsPage {
     const term = searchTerm.toLowerCase();
     let hasResults = false;
     
-    this.projects.forEach(project => {
-      const title = project.title;
-      const description = project.description;
-      const category = project.category;
+    const allCards = this.projectsGrid.querySelectorAll('.project-card');
+    
+    allCards.forEach(card => {
+      // Skip the count message and placeholder
+      if (card.classList.contains('github-count-message') || card.classList.contains('project-placeholder')) {
+        return;
+      }
+      
+      const title = card.getAttribute('data-title') || card.querySelector('.project-title')?.textContent.toLowerCase() || '';
+      const description = card.getAttribute('data-description') || card.querySelector('.project-description')?.textContent.toLowerCase() || '';
+      const category = card.getAttribute('data-category') || 'general';
       
       if (title.includes(term) || description.includes(term) || category.includes(term)) {
-        project.element.style.display = 'flex';
+        card.style.display = 'flex';
         hasResults = true;
         
         // Highlight matching text
-        this.highlightText(project.element, term);
+        this.highlightText(card, term);
       } else {
-        project.element.style.display = 'none';
-        this.removeHighlight(project.element);
+        card.style.display = 'none';
+        this.removeHighlight(card);
       }
     });
     
@@ -194,8 +161,9 @@ class ProjectsPage {
   }
 
   removeAllHighlights() {
-    this.projects.forEach(project => {
-      this.removeHighlight(project.element);
+    const allCards = this.projectsGrid.querySelectorAll('.project-card');
+    allCards.forEach(card => {
+      this.removeHighlight(card);
     });
   }
   
@@ -325,7 +293,7 @@ class ProjectsPage {
 // INITIALIZE PROJECTS PAGE
 // ====================================
 document.addEventListener('DOMContentLoaded', () => {
-  window.projectsPage = new ProjectsPage(); // Make it globally accessible
+  new ProjectsPage();
 });
 
 // ====================================
