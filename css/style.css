@@ -991,4 +991,26 @@ section {
     padding: 0 var(--spacing-md);
   }
 }
+/* Immediate fix for disappearing hero text */
+.hero-section .hero-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 
+.hero-title,
+.hero-title .title-line,
+.hero-description,
+.hero-buttons,
+.hero-stats {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: none !important;
+}
+
+/* Override any GSAP animations that might be hiding elements */
+.gsap-marker-start,
+.gsap-marker-end,
+.gsap-marker-scroller-start,
+.gsap-marker-scroller-end {
+  display: none !important;
+}
