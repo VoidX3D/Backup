@@ -1,5 +1,5 @@
 // ====================================
-// SPACE HUB - PROJECTS JAVASCRIPT
+// SPACE HUB - PROJECTS JAVASCRIPT (UPDATED)
 // ====================================
 
 class ProjectsPage {
@@ -9,6 +9,7 @@ class ProjectsPage {
     this.viewToggleBtns = document.querySelectorAll('.toggle-btn');
     this.currentView = 'grid';
     this.projects = [];
+    this.githubProjects = []; // Store GitHub projects separately
     
     this.init();
   }
@@ -27,17 +28,36 @@ class ProjectsPage {
   }
   
   collectProjects() {
-    // Collect all project cards
-    const projectCards = document.querySelectorAll('.project-card:not(.project-placeholder)');
+    // Collect all project cards (excluding GitHub projects and placeholder)
+    const projectCards = document.querySelectorAll('.project-card:not(.github-project):not(.project-placeholder)');
     
     this.projects = Array.from(projectCards).map(card => {
       return {
         element: card,
-        title: card.getAttribute('data-title') || card.querySelector('.project-title').textContent,
+        title: card.getAttribute('data-title') || card.querySelector('.project-title').textContent.toLowerCase(),
         category: card.getAttribute('data-category') || 'general',
-        description: card.querySelector('.project-description').textContent
+        description: card.querySelector('.project-description').textContent.toLowerCase(),
+        isGitHub: false
       };
     });
+
+    console.log(`📁 Collected ${this.projects.length} local projects`);
+  }
+  
+  // NEW METHOD: Add GitHub projects to search system
+  addGitHubProjects(githubCards) {
+    const githubProjects = Array.from(githubCards).map(card => {
+      return {
+        element: card,
+        title: card.getAttribute('data-title') || card.querySelector('.project-title').textContent.toLowerCase(),
+        category: card.getAttribute('data-category') || 'code',
+        description: card.querySelector('.project-description').textContent.toLowerCase(),
+        isGitHub: true
+      };
+    });
+    
+    this.projects = [...this.projects, ...githubProjects];
+    console.log(`✅ Added ${githubProjects.length} GitHub projects to search system`);
   }
   
   setupEventListeners() {
@@ -103,6 +123,7 @@ class ProjectsPage {
         project.element.style.display = 'flex';
       });
       this.hideNoResults();
+      this.removeAllHighlights();
       return;
     }
     
@@ -110,9 +131,9 @@ class ProjectsPage {
     let hasResults = false;
     
     this.projects.forEach(project => {
-      const title = project.title.toLowerCase();
-      const description = project.description.toLowerCase();
-      const category = project.category.toLowerCase();
+      const title = project.title;
+      const description = project.description;
+      const category = project.category;
       
       if (title.includes(term) || description.includes(term) || category.includes(term)) {
         project.element.style.display = 'flex';
@@ -134,14 +155,14 @@ class ProjectsPage {
   }
   
   highlightText(element, term) {
-    // Remove existing highlights
+    // Remove existing highlights from this element
     this.removeHighlight(element);
     
     // Highlight in title
     const title = element.querySelector('.project-title');
     if (title) {
       const titleText = title.textContent;
-      const regex = new RegExp(`(${term})`, 'gi');
+      const regex = new RegExp(`(${this.escapeRegExp(term)})`, 'gi');
       const highlighted = titleText.replace(regex, '<mark class="search-highlight">$1</mark>');
       title.innerHTML = highlighted;
     }
@@ -150,18 +171,31 @@ class ProjectsPage {
     const description = element.querySelector('.project-description');
     if (description) {
       const descText = description.textContent;
-      const regex = new RegExp(`(${term})`, 'gi');
+      const regex = new RegExp(`(${this.escapeRegExp(term)})`, 'gi');
       const highlighted = descText.replace(regex, '<mark class="search-highlight">$1</mark>');
       description.innerHTML = highlighted;
     }
+  }
+
+  // Helper function to escape regex special characters
+  escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
   
   removeHighlight(element) {
     const marks = element.querySelectorAll('mark.search-highlight');
     marks.forEach(mark => {
       const parent = mark.parentNode;
-      parent.replaceChild(document.createTextNode(mark.textContent), mark);
-      parent.normalize();
+      if (parent) {
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      }
+    });
+  }
+
+  removeAllHighlights() {
+    this.projects.forEach(project => {
+      this.removeHighlight(project.element);
     });
   }
   
@@ -208,6 +242,11 @@ class ProjectsPage {
     this.projectsGrid.classList.remove(`${this.currentView}-view`);
     this.projectsGrid.classList.add(`${view}-view`);
     
+    // Ensure GitHub projects have proper list view styling
+    if (view === 'list') {
+      this.ensureGitHubListViewStyling();
+    }
+    
     // Animate transition
     gsap.from('.project-card', {
       y: 20,
@@ -218,6 +257,14 @@ class ProjectsPage {
     });
     
     this.currentView = view;
+  }
+
+  // NEW METHOD: Ensure GitHub projects have list view styling
+  ensureGitHubListViewStyling() {
+    const githubProjects = this.projectsGrid.querySelectorAll('.github-project');
+    githubProjects.forEach(project => {
+      project.classList.add('github-project-list-view');
+    });
   }
   
   showAddProjectModal() {
@@ -300,7 +347,7 @@ class ProjectsPage {
 // INITIALIZE PROJECTS PAGE
 // ====================================
 document.addEventListener('DOMContentLoaded', () => {
-  new ProjectsPage();
+  window.projectsPage = new ProjectsPage(); // Make it globally accessible
 });
 
 // ====================================
