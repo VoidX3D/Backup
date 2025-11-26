@@ -1,4 +1,4 @@
-// github-projects.js (FIXED)
+// github-projects.js (SIMPLIFIED)
 class GitHubProjects {
   constructor() {
     this.username = 'VoidX3D';
@@ -16,11 +16,7 @@ class GitHubProjects {
       // Filter to show only non-forked repos for better presentation
       const originalRepos = data.repositories.filter(repo => !repo.fork);
       
-      const githubCards = this.displayProjects(originalRepos);
-      this.enableViewToggle();
-      
-      // NEW: Integrate with main projects page search system
-      this.integrateWithProjectsPage(githubCards);
+      this.displayProjects(originalRepos);
       
     } catch (error) {
       console.error('Error loading GitHub projects:', error);
@@ -38,7 +34,6 @@ class GitHubProjects {
       
       const data = await response.json();
       console.log(`✅ Loaded ${data.repositories.length} repositories from local file`);
-      console.log(`📅 Data generated: ${data.generated_at}`);
       
       return data;
     } catch (error) {
@@ -65,19 +60,6 @@ class GitHubProjects {
       }
       
       throw new Error('All data sources failed');
-    }
-  }
-
-  // NEW METHOD: Integrate GitHub projects with main projects page
-  integrateWithProjectsPage(githubCards) {
-    if (window.projectsPage && githubCards.length > 0) {
-      // Wait a brief moment to ensure projects page is fully initialized
-      setTimeout(() => {
-        window.projectsPage.addGitHubProjects(githubCards);
-        console.log('✅ GitHub projects integrated with search and view system');
-      }, 100);
-    } else {
-      console.warn('❌ Projects page not found or no GitHub cards to integrate');
     }
   }
 
@@ -115,7 +97,6 @@ class GitHubProjects {
     this.removeLoadingState();
     
     const placeholder = document.querySelector('.project-placeholder');
-    const githubCards = [];
     
     // Show repository count and info
     const countMessage = document.createElement('div');
@@ -134,11 +115,9 @@ class GitHubProjects {
       this.projectsGrid.appendChild(countMessage);
     }
     
-    // Add all projects and collect the created cards
+    // Add all projects
     projects.forEach(project => {
       const projectCard = this.createProjectCard(project);
-      githubCards.push(projectCard);
-      
       if (placeholder) {
         this.projectsGrid.insertBefore(projectCard, placeholder);
       } else {
@@ -147,7 +126,6 @@ class GitHubProjects {
     });
     
     console.log(`✅ Displayed ${projects.length} GitHub projects`);
-    return githubCards; // Return the created cards for integration
   }
 
   getProjectStats(projects) {
@@ -348,25 +326,6 @@ class GitHubProjects {
       </div>
     `;
     this.projectsGrid.appendChild(errorDiv);
-  }
-
-  enableViewToggle() {
-    console.log('✅ GitHub projects list view support enabled');
-    
-    // Observe for view changes - but let CSS handle the styling
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const isListView = this.projectsGrid.classList.contains('list-view');
-          if (isListView) {
-            // CSS will handle the list view styling automatically
-            console.log('📋 List view activated - CSS handling styling');
-          }
-        }
-      });
-    });
-
-    observer.observe(this.projectsGrid, { attributes: true });
   }
 }
 
