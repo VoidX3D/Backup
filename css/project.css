@@ -1065,3 +1065,17 @@
   text-overflow: ellipsis;
   max-width: 80px;
 }
+/* Fix for progressive transparency in list view */
+.projects-grid.list-view .project-card {
+  opacity: 1 !important; /* Force full opacity in list view */
+}
+
+/* Ensure GSAP animations don't leave permanent opacity changes */
+.project-card {
+  opacity: 1 !important;
+}
+
+/* Reset opacity after any animations */
+.projects-grid .project-card {
+  opacity: 1;
+}
