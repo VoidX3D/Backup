@@ -226,27 +226,32 @@ class ProjectsPage {
     }
   }
   
-  switchView(view) {
-    if (view === this.currentView) return;
-    
-    // Update active button
-    this.viewToggleBtns.forEach(btn => {
-      if (btn.getAttribute('data-view') === view) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-    
-    // Update grid class
-    this.projectsGrid.classList.remove(`${this.currentView}-view`);
-    this.projectsGrid.classList.add(`${view}-view`);
-    
-    // Ensure GitHub projects have proper list view styling
-    if (view === 'list') {
-      this.ensureGitHubListViewStyling();
+ switchView(view) {
+  if (view === this.currentView) return;
+  
+  // Update active button
+  this.viewToggleBtns.forEach(btn => {
+    if (btn.getAttribute('data-view') === view) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
     }
-    
+  });
+  
+  // Update grid class
+  this.projectsGrid.classList.remove(`${this.currentView}-view`);
+  this.projectsGrid.classList.add(`${view}-view`);
+  
+  // Ensure GitHub projects have proper list view styling
+  if (view === 'list') {
+    this.ensureGitHubListViewStyling();
+  }
+  
+  // REMOVED the GSAP animation from here to prevent opacity issues
+  // The cards should maintain their existing opacity
+  
+  this.currentView = view;
+}
     // Animate transition
     gsap.from('.project-card', {
       y: 20,
