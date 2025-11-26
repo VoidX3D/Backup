@@ -812,3 +812,256 @@
   color: var(--color-accent-secondary);
   border-bottom-color: var(--color-accent-secondary);
 }
+/* List View Support for GitHub Projects */
+.projects-grid.list-view .github-project {
+  flex-direction: row;
+  max-height: 200px;
+  align-items: stretch;
+}
+
+.projects-grid.list-view .github-project .project-image {
+  width: 120px;
+  flex-shrink: 0;
+  border-bottom: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-grid.list-view .github-project .project-icon {
+  width: 60px;
+  height: 60px;
+}
+
+.projects-grid.list-view .github-project .project-content {
+  padding: var(--spacing-lg);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex: 1;
+  min-width: 0; /* Important for text truncation */
+}
+
+.projects-grid.list-view .github-project .project-header {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.projects-grid.list-view .github-project .project-title {
+  font-size: 1.1rem;
+  -webkit-line-clamp: 2;
+  min-height: 2.4em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.projects-grid.list-view .github-project .project-badges {
+  margin-top: 0;
+  justify-content: flex-start;
+}
+
+.projects-grid.list-view .github-project .project-description {
+  margin-bottom: 0;
+  flex: 2;
+  max-height: 3.2em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.6;
+  min-height: auto;
+  min-width: 0; /* Important for text truncation */
+}
+
+.projects-grid.list-view .github-project .project-meta {
+  margin-bottom: 0;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  min-width: 120px;
+}
+
+.projects-grid.list-view .github-project .project-topics {
+  display: none; /* Hide topics in list view for space */
+}
+
+.projects-grid.list-view .github-project .project-footer {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 140px;
+  max-width: 160px;
+}
+
+.projects-grid.list-view .github-project .project-links {
+  flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-xs);
+}
+
+.projects-grid.list-view .github-project .project-link {
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Compact list view for smaller screens */
+@media (max-width: 1024px) {
+  .projects-grid.list-view .github-project .project-content {
+    gap: var(--spacing-md);
+  }
+  
+  .projects-grid.list-view .github-project .project-header {
+    min-width: 180px;
+    max-width: 200px;
+  }
+  
+  .projects-grid.list-view .github-project .project-description {
+    flex: 1.5;
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid.list-view .github-project {
+    flex-direction: column;
+    max-height: none;
+  }
+  
+  .projects-grid.list-view .github-project .project-image {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-md);
+  }
+  
+  .projects-grid.list-view .github-project .project-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .projects-grid.list-view .github-project .project-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+  
+  .projects-grid.list-view .github-project .project-header {
+    min-width: auto;
+    max-width: none;
+    text-align: center;
+  }
+  
+  .projects-grid.list-view .github-project .project-badges {
+    justify-content: center;
+  }
+  
+  .projects-grid.list-view .github-project .project-description {
+    flex: none;
+    text-align: center;
+    -webkit-line-clamp: 3;
+  }
+  
+  .projects-grid.list-view .github-project .project-meta {
+    justify-content: center;
+    min-width: auto;
+  }
+  
+  .projects-grid.list-view .github-project .project-topics {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .projects-grid.list-view .github-project .project-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .projects-grid.list-view .github-project .project-links {
+    flex-direction: row;
+    width: auto;
+    gap: var(--spacing-sm);
+  }
+  
+  .projects-grid.list-view .github-project .project-link {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .projects-grid.list-view .github-project .project-content {
+    padding: var(--spacing-md);
+  }
+  
+  .projects-grid.list-view .github-project .project-footer {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .projects-grid.list-view .github-project .project-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .projects-grid.list-view .github-project .project-link {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* Ensure smooth transitions between views */
+.github-project {
+  transition: all var(--transition-normal);
+}
+
+.projects-grid.list-view .github-project:hover {
+  transform: translateX(5px);
+}
+
+/* Fix for search functionality in list view */
+.projects-grid.list-view .github-project[style*="display: none"] {
+  display: none !important;
+}
+
+/* Ensure count message is hidden in list view when filtering */
+.projects-grid.list-view .github-count-message[style*="display: none"] {
+  display: none !important;
+}
+
+/* List view specific adjustments for the count message */
+.projects-grid.list-view .github-count-message {
+  grid-column: 1 / -1;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Better text truncation for list view */
+.projects-grid.list-view .github-project .project-description,
+.projects-grid.list-view .github-project .project-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ensure badges don't wrap in list view */
+.projects-grid.list-view .github-project .project-badges {
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.projects-grid.list-view .github-project .project-badge {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
