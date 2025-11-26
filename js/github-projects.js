@@ -1,4 +1,4 @@
-// github-projects.js (UPDATED)
+// github-projects.js (FIXED)
 class GitHubProjects {
   constructor() {
     this.username = 'VoidX3D';
@@ -353,27 +353,20 @@ class GitHubProjects {
   enableViewToggle() {
     console.log('✅ GitHub projects list view support enabled');
     
-    // Observe for view changes and ensure proper styling
+    // Observe for view changes - but let CSS handle the styling
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
           const isListView = this.projectsGrid.classList.contains('list-view');
           if (isListView) {
-            this.ensureListViewStyling();
+            // CSS will handle the list view styling automatically
+            console.log('📋 List view activated - CSS handling styling');
           }
         }
       });
     });
 
     observer.observe(this.projectsGrid, { attributes: true });
-  }
-
-  ensureListViewStyling() {
-    // Ensure all GitHub projects have proper list view styling
-    const githubProjects = this.projectsGrid.querySelectorAll('.github-project');
-    githubProjects.forEach(project => {
-      project.classList.add('github-project-list-view');
-    });
   }
 }
 
