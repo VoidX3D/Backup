@@ -991,11 +991,4 @@ section {
     padding: 0 var(--spacing-md);
   }
 }
-/* Search Highlight Styles */
-.search-highlight {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-  padding: 0 2px;
-  border-radius: 2px;
-  font-weight: 600;
-}
+
