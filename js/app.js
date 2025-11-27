@@ -131,6 +131,7 @@ class NavbarScroll {
     }
   }
 }
+
 // ====================================
 // SCROLL ANIMATIONS
 // ====================================
@@ -170,61 +171,28 @@ class ScrollAnimations {
       });
     });
     
-    // FIXED: Animate stats properly
-    this.animateStats();
-  }
-  
-  animateStats() {
+    // Animate stats
     const stats = document.querySelectorAll('.stat-number');
-    
     stats.forEach(stat => {
-      const originalText = stat.textContent.trim();
-      
-      // Extract the numeric value and suffix
-      let targetValue, suffix;
-      
-      if (originalText.includes('%')) {
-        targetValue = parseInt(originalText);
-        suffix = '%';
-      } else if (originalText.includes('+')) {
-        targetValue = parseInt(originalText);
-        suffix = '+';
-      } else {
-        targetValue = parseInt(originalText);
-        suffix = '';
-      }
-      
-      // If we can't parse the number, skip animation
-      if (isNaN(targetValue)) {
-        console.warn('Could not parse number from:', originalText);
-        return;
-      }
-      
-      // Reset the stat to 0 for animation
-      stat.textContent = '0' + suffix;
-      
-      // Animate from 0 to target value
-      gsap.to(stat, {
+      const target = stat.textContent;
+      gsap.from(stat, {
         scrollTrigger: {
           trigger: stat,
           start: 'top 80%',
           toggleActions: 'play none none reverse'
         },
+        textContent: 0,
         duration: 2,
         ease: 'power1.inOut',
+        snap: { textContent: 1 },
         onUpdate: function() {
-          const progress = this.progress();
-          const currentValue = Math.floor(progress * targetValue);
-          stat.textContent = currentValue + suffix;
-        },
-        onComplete: function() {
-          // Ensure we end with the exact original text
-          stat.textContent = originalText;
+          stat.textContent = Math.ceil(this.targets()[0].textContent) + (target.includes('%') ? '%' : '+');
         }
       });
     });
   }
 }
+
 // ====================================
 // SMOOTH SCROLL
 // ====================================
