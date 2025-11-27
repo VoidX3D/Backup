@@ -1,46 +1,22 @@
 /* ====================================
-   SPACE HUB - PROJECTS STYLESHEET
+   PROJECTS PAGE STYLES
    ==================================== */
 
-/* Projects Hero Section */
+/* Projects Hero */
 .projects-hero {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
   padding: calc(80px + var(--spacing-2xl)) var(--spacing-lg) var(--spacing-2xl);
-  position: relative;
-  overflow: hidden;
   text-align: center;
-}
-
-.projects-hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-  animation: fadeInUp 1s ease-out;
-}
-
-.page-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 900;
-  margin-bottom: var(--spacing-md);
-  line-height: 1.1;
-}
-
-.page-subtitle {
-  font-size: 1.25rem;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 /* Projects Controls */
 .projects-controls {
   padding: var(--spacing-lg) 0;
-  background: rgba(26, 26, 36, 0.3);
-  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 80px;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 90;
 }
 
 .controls-wrapper {
@@ -51,34 +27,35 @@
 }
 
 .search-box {
-  position: relative;
   flex: 1;
   max-width: 400px;
-}
-
-.search-box svg {
-  position: absolute;
-  left: var(--spacing-md);
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-text-muted);
-}
-
-.search-box input {
-  width: 100%;
-  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) calc(var(--spacing-md) * 2 + 20px);
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-tertiary);
   border-radius: var(--radius-lg);
-  color: var(--color-text-primary);
-  font-size: 1rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--transition-fast);
 }
 
-.search-box input:focus {
-  outline: none;
+.search-box:focus-within {
   border-color: var(--color-accent-primary);
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.search-box svg {
+  color: var(--color-text-muted);
+  margin-right: var(--spacing-sm);
+}
+
+.search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-size: 1rem;
 }
 
 .search-box input::placeholder {
@@ -87,11 +64,11 @@
 
 .view-toggle {
   display: flex;
-  background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: var(--spacing-xs);
+  background: var(--color-bg-tertiary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xs);
-  gap: var(--spacing-xs);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .toggle-btn {
@@ -103,34 +80,45 @@
   border: none;
   border-radius: var(--radius-md);
   color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
+  font-weight: 600;
 }
 
 .toggle-btn:hover {
   color: var(--color-text-primary);
-  background: var(--color-bg-hover);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .toggle-btn.active {
-  color: var(--color-accent-primary);
-  background: rgba(0, 212, 255, 0.1);
+  background: var(--gradient-primary);
+  color: white;
 }
 
-/* Projects Grid */
+.toggle-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ====================================
+   PROJECTS GRID
+   ==================================== */
 .projects-section {
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-2xl) 0 var(--spacing-3xl);
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: var(--spacing-lg);
+  transition: all var(--transition-normal);
 }
 
-/* Project Card Styles */
+.projects-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+/* Project Card */
 .project-card {
   background: var(--color-bg-card);
   backdrop-filter: blur(10px);
@@ -139,7 +127,6 @@
   overflow: hidden;
   transition: all var(--transition-normal);
   position: relative;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -150,11 +137,10 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 4px;
   background: var(--gradient-primary);
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-  z-index: -1;
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
 }
 
 .project-card:hover {
@@ -164,68 +150,103 @@
 }
 
 .project-card:hover::before {
-  opacity: 0.1;
+  transform: scaleX(1);
 }
 
+/* List View Styling */
+.projects-grid.list-view .project-card {
+  flex-direction: row;
+  align-items: center;
+}
+
+.projects-grid.list-view .project-image {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.projects-grid.list-view .project-content {
+  flex: 1;
+}
+
+/* Project Image */
 .project-image {
-  padding: var(--spacing-xl);
+  width: 100%;
+  height: 250px;
+  background: var(--color-bg-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.project-card:hover .project-image::after {
+  opacity: 0.1;
 }
 
 .project-icon {
   width: 120px;
   height: 120px;
-  opacity: 0.8;
-  transition: all var(--transition-normal);
+  transition: transform var(--transition-normal);
 }
 
 .project-card:hover .project-icon {
-  transform: scale(1.1);
-  opacity: 1;
+  transform: scale(1.1) rotate(5deg);
 }
 
+/* Project Content */
 .project-content {
   padding: var(--spacing-xl);
-  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1;
 }
 
 .project-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--spacing-md);
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
 }
 
 .project-title {
   font-size: 1.5rem;
   font-weight: 700;
+  color: var(--color-text-primary);
   font-family: 'Orbitron', sans-serif;
   margin: 0;
-  flex: 1;
 }
 
 .project-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
   background: var(--gradient-primary);
   color: white;
-  padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .project-description {
   color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-bottom: var(--spacing-lg);
   flex: 1;
 }
 
@@ -233,7 +254,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -246,6 +266,11 @@
   font-size: 0.875rem;
 }
 
+.project-date svg {
+  width: 16px;
+  height: 16px;
+}
+
 .project-link {
   display: flex;
   align-items: center;
@@ -253,12 +278,12 @@
   color: var(--color-accent-primary);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
   transition: all var(--transition-fast);
 }
 
 .project-link:hover {
   gap: var(--spacing-md);
+  color: var(--color-accent-secondary);
 }
 
 .project-link svg {
@@ -266,15 +291,12 @@
   height: 16px;
 }
 
-/* Placeholder Project Card */
+/* Project Placeholder */
 .project-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
   border: 2px dashed rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
   cursor: pointer;
-  transition: all var(--transition-normal);
+  min-height: 400px;
 }
 
 .project-placeholder:hover {
@@ -283,111 +305,59 @@
 }
 
 .placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl);
   text-align: center;
-  padding: var(--spacing-xl);
-  color: var(--color-text-muted);
+  height: 100%;
 }
 
 .placeholder-content svg {
-  margin: 0 auto var(--spacing-md);
-  color: var(--color-text-muted);
+  color: var(--color-accent-primary);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
 }
 
 .placeholder-content h3 {
+  font-family: 'Orbitron', sans-serif;
   font-size: 1.25rem;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
   color: var(--color-text-primary);
 }
 
 .placeholder-content p {
-  font-size: 0.9rem;
-}
-
-/* List View Styles */
-.projects-grid.list-view {
-  grid-template-columns: 1fr;
-  gap: var(--spacing-md);
-}
-
-.projects-grid.list-view .project-card {
-  flex-direction: row;
-  max-height: 200px;
-}
-
-.projects-grid.list-view .project-image {
-  width: 200px;
-  flex-shrink: 0;
-  border-bottom: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--spacing-lg);
-}
-
-.projects-grid.list-view .project-icon {
-  width: 80px;
-  height: 80px;
-}
-
-.projects-grid.list-view .project-content {
-  padding: var(--spacing-lg);
-  flex-direction: row;
-  align-items: center;
-  gap: var(--spacing-lg);
-}
-
-.projects-grid.list-view .project-header {
-  margin-bottom: 0;
-  flex: 1;
-}
-
-.projects-grid.list-view .project-description {
-  margin-bottom: 0;
-  flex: 2;
-  max-height: 3.2em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.projects-grid.list-view .project-footer {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--spacing-sm);
-  flex: 1;
-}
-
-/* No Results Message */
-.no-results {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: var(--spacing-3xl);
   color: var(--color-text-muted);
 }
 
-.no-results svg {
-  width: 64px;
-  height: 64px;
-  margin-bottom: var(--spacing-md);
-  opacity: 0.5;
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--color-text-secondary);
 }
 
-.no-results h3 {
+.empty-state svg {
+  width: 80px;
+  height: 80px;
+  color: var(--color-accent-primary);
+  opacity: 0.3;
+  margin-bottom: var(--spacing-lg);
+}
+
+.empty-state h3 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-sm);
   color: var(--color-text-primary);
 }
 
-/* Responsive Design */
+/* ====================================
+   RESPONSIVE
+   ==================================== */
 @media (max-width: 1024px) {
   .projects-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-  
-  .page-title {
-    font-size: 3rem;
   }
 }
 
@@ -395,687 +365,47 @@
   .controls-wrapper {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--spacing-md);
   }
   
   .search-box {
-    max-width: none;
+    max-width: 100%;
+  }
+  
+  .view-toggle {
+    justify-content: center;
   }
   
   .projects-grid {
     grid-template-columns: 1fr;
   }
   
-  .page-title {
-    font-size: 2.5rem;
-  }
-  
-  .page-subtitle {
-    font-size: 1.125rem;
-  }
-  
   .projects-grid.list-view .project-card {
     flex-direction: column;
-    max-height: none;
   }
   
   .projects-grid.list-view .project-image {
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 250px;
   }
   
-  .projects-grid.list-view .project-content {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-md);
-  }
-  
-  .projects-grid.list-view .project-footer {
-    flex-direction: row;
-    justify-content: space-between;
+  .project-title {
+    font-size: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
-  .page-title {
-    font-size: 2rem;
+  .project-content {
+    padding: var(--spacing-md);
   }
   
   .project-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-sm);
   }
   
-  .project-badge {
-    align-self: flex-start;
-  }
-}
-/* Search Highlight Styles */
-.search-highlight {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-  padding: 0 2px;
-  border-radius: 2px;
-  font-weight: 600;
-}
-/* Enhanced GitHub Projects Header */
-.github-count-message {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: var(--spacing-2xl);
-  background: var(--color-bg-card);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: var(--spacing-lg);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.github-count-message::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--gradient-primary);
-  opacity: 0.6;
-}
-
-.count-content h3 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.75rem;
-  margin-bottom: var(--spacing-md);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-}
-
-.count-content h3::before {
-  content: '🚀';
-  font-size: 1.5rem;
-  filter: grayscale(0.3);
-}
-
-.count-content p {
-  margin: 0;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  font-size: 1.1rem;
-}
-
-.count-subtitle {
-  font-size: 0.95rem;
-  opacity: 0.9;
-  margin-top: var(--spacing-sm) !important;
-  color: var(--color-text-muted);
-  line-height: 1.5;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.count-subtitle::before {
-  content: '📊';
-  font-size: 0.9rem;
-}
-
-/* Enhanced Project Topics/Tags */
-.project-topics {
-  display: flex;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-md);
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.project-topic {
-  padding: calc(var(--spacing-xs) * 0.8) var(--spacing-sm);
-  background: rgba(123, 47, 247, 0.15);
-  color: var(--color-accent-secondary);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 500;
-  line-height: 1.2;
-  border: 1px solid rgba(123, 47, 247, 0.3);
-  transition: all var(--transition-fast);
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: default;
-}
-
-.project-topic:hover {
-  background: rgba(123, 47, 247, 0.25);
-  transform: translateY(-1px);
-}
-
-.project-topic-more {
-  padding: calc(var(--spacing-xs) * 0.8) var(--spacing-sm);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-text-muted);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Enhanced Project Badges */
-.project-badges {
-  display: flex;
-  gap: var(--spacing-xs);
-  flex-wrap: wrap;
-  margin-top: var(--spacing-xs);
-}
-
-.project-badge {
-  padding: calc(var(--spacing-xs) * 0.6) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  line-height: 1;
-  border: 1px solid transparent;
-}
-
-.project-badge.language {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(123, 47, 247, 0.15));
-  color: var(--color-accent-primary);
-  border-color: rgba(0, 212, 255, 0.3);
-}
-
-.project-badge.archived {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(238, 90, 82, 0.15));
-  color: #ff6b6b;
-  border-color: rgba(255, 107, 107, 0.3);
-}
-
-.project-badge.pages {
-  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 204, 102, 0.15));
-  color: #00ff88;
-  border-color: rgba(0, 255, 136, 0.3);
-}
-
-.project-badge.stars {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 107, 0, 0.15));
-  color: #ffd700;
-  border-color: rgba(255, 215, 0, 0.3);
-}
-
-/* Enhanced Project Meta */
-.project-meta {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-  flex-wrap: wrap;
-}
-
-.project-stats {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  color: var(--color-text-muted);
-  font-size: 0.85rem;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all var(--transition-fast);
-}
-
-.project-stats:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.project-stats svg {
-  width: 14px;
-  height: 14px;
-  opacity: 0.8;
-}
-
-/* Enhanced Project Description */
-.project-description {
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-md);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 4.8em;
-  font-size: 0.95rem;
-}
-
-/* Enhanced Project Title */
-.project-title {
-  font-size: 1.25rem;
-  line-height: 1.3;
-  margin-bottom: var(--spacing-sm);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.6em;
-  font-weight: 700;
-  color: var(--color-text-primary);
-}
-
-/* Responsive Improvements */
-@media (max-width: 768px) {
-  .github-count-message {
-    padding: var(--spacing-xl);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .count-content h3 {
-    font-size: 1.5rem;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-  
-  .count-subtitle {
-    font-size: 0.9rem;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-  
-  .project-topics {
-    gap: calc(var(--spacing-xs) * 0.8);
-  }
-  
-  .project-topic {
-    font-size: 0.7rem;
-    padding: calc(var(--spacing-xs) * 0.6) calc(var(--spacing-sm) * 0.8);
-    max-width: 100px;
-  }
-  
-  .project-badges {
-    gap: calc(var(--spacing-xs) * 0.8);
-  }
-  
-  .project-badge {
-    font-size: 0.65rem;
-    padding: calc(var(--spacing-xs) * 0.5) calc(var(--spacing-sm) * 0.8);
-  }
-  
-  .project-meta {
-    gap: var(--spacing-sm);
-  }
-  
-  .project-stats {
-    font-size: 0.8rem;
-    padding: calc(var(--spacing-xs) * 0.8) var(--spacing-sm);
-  }
-}
-
-@media (max-width: 480px) {
-  .github-count-message {
-    padding: var(--spacing-lg);
-  }
-  
-  .count-content h3 {
-    font-size: 1.3rem;
-  }
-  
-  .count-content p {
-    font-size: 1rem;
-  }
-  
-  .count-subtitle {
-    font-size: 0.85rem;
-  }
-  
-  .project-topic {
-    max-width: 80px;
-    font-size: 0.65rem;
-  }
-  
-  .project-badge {
-    font-size: 0.6rem;
-  }
-}
-
-/* Special styling for long topic names */
-.project-topic[data-tooltip] {
-  position: relative;
-}
-
-.project-topic[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  white-space: nowrap;
-  z-index: 1000;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: var(--shadow-md);
-}
-
-/* Animation for header */
-.github-count-message {
-  animation: slideInDown 0.6s ease-out;
-}
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Gradient background effect for header */
-.github-count-message {
-  background: linear-gradient(135deg, 
-    rgba(26, 26, 36, 0.8) 0%, 
-    rgba(26, 26, 36, 0.9) 100%);
-}
-
-/* Enhanced link styling in header */
-.github-count-message a {
-  color: var(--color-accent-primary);
-  text-decoration: none;
-  font-weight: 600;
-  transition: all var(--transition-fast);
-  border-bottom: 1px solid transparent;
-}
-
-.github-count-message a:hover {
-  color: var(--color-accent-secondary);
-  border-bottom-color: var(--color-accent-secondary);
-}
-/* List View Support for GitHub Projects */
-.projects-grid.list-view .github-project {
-  flex-direction: row;
-  max-height: 200px;
-  align-items: stretch;
-}
-
-.projects-grid.list-view .github-project .project-image {
-  width: 120px;
-  flex-shrink: 0;
-  border-bottom: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--spacing-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.projects-grid.list-view .github-project .project-icon {
-  width: 60px;
-  height: 60px;
-}
-
-.projects-grid.list-view .github-project .project-content {
-  padding: var(--spacing-lg);
-  flex-direction: row;
-  align-items: center;
-  gap: var(--spacing-lg);
-  flex: 1;
-  min-width: 0; /* Important for text truncation */
-}
-
-.projects-grid.list-view .github-project .project-header {
-  margin-bottom: 0;
-  flex: 1;
-  min-width: 200px;
-  max-width: 250px;
-}
-
-.projects-grid.list-view .github-project .project-title {
-  font-size: 1.1rem;
-  -webkit-line-clamp: 2;
-  min-height: 2.4em;
-  margin-bottom: var(--spacing-xs);
-}
-
-.projects-grid.list-view .github-project .project-badges {
-  margin-top: 0;
-  justify-content: flex-start;
-}
-
-.projects-grid.list-view .github-project .project-description {
-  margin-bottom: 0;
-  flex: 2;
-  max-height: 3.2em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-height: 1.6;
-  min-height: auto;
-  min-width: 0; /* Important for text truncation */
-}
-
-.projects-grid.list-view .github-project .project-meta {
-  margin-bottom: 0;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  min-width: 120px;
-}
-
-.projects-grid.list-view .github-project .project-topics {
-  display: none; /* Hide topics in list view for space */
-}
-
-.projects-grid.list-view .github-project .project-footer {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--spacing-sm);
-  flex: 1;
-  min-width: 140px;
-  max-width: 160px;
-}
-
-.projects-grid.list-view .github-project .project-links {
-  flex-direction: column;
-  width: 100%;
-  gap: var(--spacing-xs);
-}
-
-.projects-grid.list-view .github-project .project-link {
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  padding: var(--spacing-xs) var(--spacing-sm);
-}
-
-/* Compact list view for smaller screens */
-@media (max-width: 1024px) {
-  .projects-grid.list-view .github-project .project-content {
-    gap: var(--spacing-md);
-  }
-  
-  .projects-grid.list-view .github-project .project-header {
-    min-width: 180px;
-    max-width: 200px;
-  }
-  
-  .projects-grid.list-view .github-project .project-description {
-    flex: 1.5;
-  }
-}
-
-@media (max-width: 768px) {
-  .projects-grid.list-view .github-project {
-    flex-direction: column;
-    max-height: none;
-  }
-  
-  .projects-grid.list-view .github-project .project-image {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: var(--spacing-md);
-  }
-  
-  .projects-grid.list-view .github-project .project-icon {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .projects-grid.list-view .github-project .project-content {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
-  }
-  
-  .projects-grid.list-view .github-project .project-header {
-    min-width: auto;
-    max-width: none;
-    text-align: center;
-  }
-  
-  .projects-grid.list-view .github-project .project-badges {
-    justify-content: center;
-  }
-  
-  .projects-grid.list-view .github-project .project-description {
-    flex: none;
-    text-align: center;
-    -webkit-line-clamp: 3;
-  }
-  
-  .projects-grid.list-view .github-project .project-meta {
-    justify-content: center;
-    min-width: auto;
-  }
-  
-  .projects-grid.list-view .github-project .project-topics {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .projects-grid.list-view .github-project .project-footer {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-width: auto;
-    max-width: none;
-  }
-  
-  .projects-grid.list-view .github-project .project-links {
-    flex-direction: row;
-    width: auto;
-    gap: var(--spacing-sm);
-  }
-  
-  .projects-grid.list-view .github-project .project-link {
-    width: auto;
-    justify-content: flex-start;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-  .projects-grid.list-view .github-project .project-content {
-    padding: var(--spacing-md);
-  }
-  
-  .projects-grid.list-view .github-project .project-footer {
+  .project-footer {
     flex-direction: column;
     gap: var(--spacing-md);
+    align-items: flex-start;
   }
-  
-  .projects-grid.list-view .github-project .project-links {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .projects-grid.list-view .github-project .project-link {
-    flex: 1;
-    justify-content: center;
-  }
-}
-
-/* Ensure smooth transitions between views */
-.github-project {
-  transition: all var(--transition-normal);
-}
-
-.projects-grid.list-view .github-project:hover {
-  transform: translateX(5px);
-}
-
-/* Fix for search functionality in list view */
-.projects-grid.list-view .github-project[style*="display: none"] {
-  display: none !important;
-}
-
-/* Ensure count message is hidden in list view when filtering */
-.projects-grid.list-view .github-count-message[style*="display: none"] {
-  display: none !important;
-}
-
-/* List view specific adjustments for the count message */
-.projects-grid.list-view .github-count-message {
-  grid-column: 1 / -1;
-  margin-bottom: var(--spacing-md);
-}
-
-/* Better text truncation for list view */
-.projects-grid.list-view .github-project .project-description,
-.projects-grid.list-view .github-project .project-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Ensure badges don't wrap in list view */
-.projects-grid.list-view .github-project .project-badges {
-  flex-wrap: nowrap;
-  overflow: hidden;
-}
-
-.projects-grid.list-view .github-project .project-badge {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80px;
-}
-/* Fix for progressive transparency in list view */
-.projects-grid.list-view .project-card {
-  opacity: 1 !important; /* Force full opacity in list view */
-}
-
-/* Ensure GSAP animations don't leave permanent opacity changes */
-.project-card {
-  opacity: 1 !important;
-}
-
-/* Reset opacity after any animations */
-.projects-grid .project-card {
-  opacity: 1;
 }
